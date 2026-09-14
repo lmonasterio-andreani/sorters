@@ -46,41 +46,17 @@ El sistema pivote que articula la lógica de negocio y prepara los datos para la
 
 ![Arquitectura en Capas Resumida](./docs/arquitectura-resumida.svg)
 
-<details>
-<summary><b>Haz clic aquí para ver o editar el código fuente Mermaid</b></summary>
-
-```mermaid
-graph TD
-    classDef client fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef tms fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef spp fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
-    classDef db fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
-    classDef machine fill:#ffebee,stroke:#d32f2f,stroke-width:2px;
-    classDef obs fill:#fce4ec,stroke:#c2185b,stroke-width:2px;
-
-    Client["Cliente / API Unificada"]:::client -->|"OrdenEnvioSolicitada"| TMS["TMS: DMS / Integra"]:::tms
-    TMS -->|"OrdenEnvioCreada / Cambios"| SPP["Middleware SPP<br/>(Workers & APIs en K8s)"]:::spp
-    SPP <-->|"Enriquecimiento"| Enrichment["APIs Normalización NDD / Geo / Sucursales"]:::spp
-    SPP -->|"Persistencia AlwaysOn"| DBSORTER[("DBSORTER<br/>(Primario + Réplica Lectura)")]:::db
-    DBSORTER -->|"Eventos Kafka SPP"| SorterIn["Integración Sorter<br/>(Vertical, Trux, Wayzim, Giops)"]:::spp
-    SorterIn <-->|"Capa Proveedor / PLC"| Hardware["Software de Máquina (Optisoft / Optimus)<br/>+ PLC Siemens S7-400"]:::machine
-    Hardware -->|"Feedback de Clasificación"| SorterIn
-    SorterIn -->|"Cierre de Trazabilidad"| DBSORTER
-    DBSORTER -->|"Lectura Réplica"| Dashboards["Tableros Operativos SPP & Reportes"]:::obs
-```
-</details>
-
 ---
 
 ## 💡 Hito Inicial: Vertical Sorter (CIT 1° Piso)
 Siguiendo las definiciones del equipo de Arquitectura y Observabilidad, el primer hito de modelado y monitoreo integral se focaliza en el **Vertical Sorter**. 
 Este sistema reúne todos los desafíos de integración:
-- Microservicios en Kubernetes (.NET 6)
+- Microservicios en Kubernetes
 - Eventos asíncronos en Apache Kafka (AMQ Streams)
-- Base de datos relacional en alta disponibilidad AlwaysOn (`DBSORTER` e `Integración Vertical`)
-- Almacenamiento de estado / cursor en Redis (`DBSORTERPROD`)
-- Interfaz bidireccional con software de fabricante (**Optisoft/Optimus**)
-- Hardware de control industrial (**PLC Siemens Simatic S7-400**)
-- Circuito de auto-recuperación de excepciones por **Rampa 6** (`job-spptovertical`)
+- Base de datos relacional en alta disponibilidad AlwaysOn (DBSORTER e Integración Vertical)
+- Almacenamiento de estado / cursor en Redis (DBSORTERPROD)
+- Interfaz bidireccional con software de fabricante
+- Hardware de control industrial
+- Circuito de auto-recuperación de excepciones por Rampa 6 (job-spptovertical)
 
 Una vez consolidado y monitoreado este circuito, el modelo se replica para los demás tipos de clasificadores.
