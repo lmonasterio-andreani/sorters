@@ -12,25 +12,6 @@ La observabilidad del ecosistema de Sorters tiene como meta garantizar:
 
 ![Cuatro Pilares de Observabilidad](./pilares-observabilidad.svg)
 
-<details>
-<summary><b>Haz clic aquí para ver o editar el código fuente Mermaid</b></summary>
-
-```mermaid
-graph TD
-    classDef p1 fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px;
-    classDef p2 fill:#e0f2f1,stroke:#00897b,stroke-width:2px;
-    classDef p3 fill:#fff8e1,stroke:#ffa000,stroke-width:2px;
-    classDef p4 fill:#fbe9e7,stroke:#d84315,stroke-width:2px;
-
-    P1["1. Métricas & SLIs<br/>- Consumer Lag en Kafka<br/>- Throughput de clasificación<br/>- Latencia de APIs de enriquecimiento<br/>- Tasa de bultos a Rampa 6"]:::p1
-    P2["2. Logs & Tracing<br/>- Elastic APM / OpenTelemetry<br/>- Correlation ID: idEnvio / bulto<br/>- Errores de parseo y timeouts"]:::p2
-    P3["3. Health Checks & Sintéticos<br/>- Probes /health en K8s<br/>- AlwaysOn DB Cluster Status<br/>- Ping/SNMP a PCs y Siemens S7-400"]:::p3
-    P4["4. Alarmado Inteligente<br/>- Severidades P1 (Crítica) a P3 (Info)<br/>- Enrutamiento a guardia NOC<br/>- Runbooks accionables"]:::p4
-
-    P1 --- P2 --- P3 --- P4
-```
-</details>
-
 ---
 
 ## 3. Indicadores Clave de Servicio (SLIs / SLOs)

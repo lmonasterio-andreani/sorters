@@ -13,30 +13,6 @@ En la red logística de Andreani conviven distintas tecnologías y fabricantes d
 
 ![Tipología de Sorters](./tipologia-sorters.svg)
 
-<details>
-<summary><b>Haz clic aquí para ver o editar el código fuente Mermaid</b></summary>
-
-```mermaid
-graph TD
-    classDef main fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
-    classDef sub fill:#f5f5f5,stroke:#616161,stroke-width:1px;
-
-    Sorters["Ecosistema de Sorters Andreani"]:::main
-    
-    Sorters --> S1["Vertical Sorter<br/>(CIT 1° Piso)"]:::sub
-    Sorters --> S2["TruxSorter / Vanderlande<br/>(CIT PB)"]:::sub
-    Sorters --> S3["Wayzim Sorters<br/>(Pacheco & Avellaneda)"]:::sub
-    Sorters --> S4["Giops<br/>(Desarrollo Interno Andreani)"]:::sub
-    Sorters --> S5["Sorters Regionales / Irregulares<br/>(Córdoba, Mendoza, Tucumán, etc.)"]:::sub
-
-    S1 --- D1["Optisoft/Optimus + Siemens S7-400<br/>Paquetes estándar / medianos"]
-    S2 --- D2["Vanderlande Industries<br/>Integración por archivos/lotes batch"]
-    S3 --- D3["Wayzim Technology<br/>Integración API REST local (K3H / K3S)"]
-    S4 --- D4["Desarrollo Andreani<br/>Arcos de aforo y clasificadores propios"]
-    S5 --- D5["Sistemas dedicados a bultos fuera de medida<br/>o clasificadores locales de sucursal"]
-```
-</details>
-
 ### Detalle de cada tecnología:
 1. **Vertical Sorter (CIT 1° Piso - Central Inteligente de Transferencia)**:
    - **Uso**: Paquetería estándar y e-commerce de alta velocidad.
@@ -63,62 +39,6 @@ graph TD
 El ecosistema se organiza en **cinco capas tecnológicas**, garantizando el desacoplamiento entre los sistemas comerciales de venta y las máquinas físicas de planta:
 
 ![Capas Tecnológicas](./capas-tecnologicas.svg)
-
-<details>
-<summary><b>Haz clic aquí para ver o editar el código fuente Mermaid</b></summary>
-
-```mermaid
-graph TB
-    subgraph Capa1["1. Capa de Clientes y Canales"]
-        CLI[Clientes Corporativos / Tiendas / B2C]
-        API_U[API Unificada Andreani]
-    end
-
-    subgraph Capa2["2. Capa TMS (Transport Management Systems)"]
-        DMS[DMS - Delivery Management System]
-        INT[Integra - ERP/TMS Core]
-    end
-
-    subgraph Capa3["3. Capa Middleware SPP (Sistema de Paquetería y Procesamiento)"]
-        SPP_W[Workers Consumidores: spp-altas-suscriber / acciones-suscriber]
-        SPP_API[APIs de Orquestación: spp-altas-api / acciones-api]
-        ENRICH[Servicios de Enriquecimiento: Normalización NDD / Geo / Sucursales]
-        SPP_PUB[Publicadores de Eventos: publisher-events-spp]
-    end
-
-    subgraph Capa4["4. Capa de Persistencia y Caching"]
-        DBSORTER_P[("DBSORTER (Primario Transaccional)")]
-        DBSORTER_R[("DBSORTER (Réplica AlwaysOn - Lectura/Dashboards)")]
-        DBVERT_P[("DB Integración Vertical (Primario)")]
-        DBVERT_R[("DB Integración Vertical (Réplica AlwaysOn)")]
-        REDIS[("Redis Caching (DBSORTERPROD - Cursor de Eventos)")]
-    end
-
-    subgraph Capa5["5. Capa Física, Fabricantes y Control Industrial"]
-        OPTISOFT["Software de Fabricante: Optisoft (Optimus)"]
-        PLC["Controladores Lógicos: Siemens Simatic S7-400"]
-        SCANNERS["Arcos de Lectura Óptica, Balanzas y Sensores de Volumen"]
-        CHUTES["Rampas de Despacho (Rampa 1..N + Rampa 6 Excepciones)"]
-    end
-
-    CLI --> API_U
-    API_U -->|"Kafka: OrdenEnvioSolicitada"| DMS
-    API_U -->|"Kafka: OrdenEnvioSolicitada"| INT
-    DMS -->|"Kafka: OrdenEnvioCreada / Cambios"| SPP_W
-    INT -->|"Kafka: OrdenEnvioCreada"| SPP_W
-    SPP_W --> SPP_API
-    SPP_API <--> ENRICH
-    SPP_API --> DBSORTER_P
-    DBSORTER_P -.->|"Replicación AlwaysOn"| DBSORTER_R
-    DBSORTER_P --> SPP_PUB
-    SPP_PUB -->|"Kafka: spp.alta-envio"| DBVERT_P
-    DBVERT_P -.->|"Replicación AlwaysOn"| DBVERT_R
-    DBVERT_P <--> OPTISOFT
-    OPTISOFT <--> PLC
-    PLC <--> SCANNERS
-    PLC --> CHUTES
-```
-</details>
 
 ---
 
