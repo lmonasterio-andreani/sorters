@@ -26,7 +26,7 @@ graph TD
     Sorters --> S1["Vertical Sorter<br/>(CIT 1° Piso)"]:::sub
     Sorters --> S2["TruxSorter / Vanderlande<br/>(CIT PB)"]:::sub
     Sorters --> S3["Wayzim Sorters<br/>(Pacheco & Avellaneda)"]:::sub
-    Sorters --> S4["Hiops / Jiops<br/>(Desarrollo Interno Andreani)"]:::sub
+    Sorters --> S4["Giops<br/>(Desarrollo Interno Andreani)"]:::sub
     Sorters --> S5["Sorters Regionales / Irregulares<br/>(Córdoba, Mendoza, Tucumán, etc.)"]:::sub
 
     S1 --- D1["Optisoft/Optimus + Siemens S7-400<br/>Paquetes estándar / medianos"]
@@ -49,7 +49,7 @@ graph TD
 3. **Wayzim Sorters (Plantas Pacheco y Avellaneda)**:
    - **Uso**: Grandes plantas troncales.
    - **Mecanismo de Integración**: APIs HTTP locales (`integration-sorters-api` desplegada en clusters locales K3H y K3S, además de AKS-BR en nube).
-4. **Hiops / Jiops (Sorters y Arcos de Aforo In-house)**:
+4. **Giops (Sorters y Arcos de Aforo In-house)**:
    - **Uso**: Diseñados y programados por el equipo de ingeniería e innovación de Andreani.
    - **Mecanismo de Integración**: Consumo directo de eventos de Kafka de SPP (`spp.asignacion-custodia`).
 5. **Sorters Regionales e Irregulares**:

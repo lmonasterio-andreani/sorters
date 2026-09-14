@@ -13,7 +13,7 @@ Este repositorio centraliza toda la documentación técnica, diagramas de arquit
 | Documento / Carpeta | Descripción | Audiencia Principal |
 | :--- | :--- | :--- |
 | 🌐 [**Sorter.html (Home Page)**](./Sorter.html) | Portal web interactivo con menú lateral y visualización integrada de todos los documentos y diagramas. | Toda la Organización |
-| 📘 [**01. Arquitectura General y Ecosistema**](docs/01-arquitectura-general.md) | Visión macro del negocio logístico, tipología de Sorters (Vertical, TruxSorter, Wayzim, Hiops, Regionales) y capas tecnológicas (TMS, SPP, Bases AlwaysOn, Hardware). | Arquitectura, Líderes Técnicos, Operaciones |
+| 📘 [**01. Arquitectura General y Ecosistema**](docs/01-arquitectura-general.md) | Visión macro del negocio logístico, tipología de Sorters (Vertical, TruxSorter, Wayzim, Giops, Regionales) y capas tecnológicas (TMS, SPP, Bases AlwaysOn, Hardware). | Arquitectura, Líderes Técnicos, Operaciones |
 | ⚡ [**02. Flujo End-to-End: Vertical Sorter**](docs/02-flujo-end-to-end-vertical.md) | Recorrido paso a paso del flujo de datos y paquetería desde la ingesta del cliente hasta la inducción física, clasificación y retroalimentación a dashboards. Incluye resiliencia de Rampa 6. | Desarrolladores, SysAdmins, Observabilidad |
 | 📋 [**03. Catálogo e Inventario de Componentes**](docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
 | 🎯 [**04. Estrategia de Observabilidad Integral**](docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
@@ -62,7 +62,7 @@ graph TD
     TMS -->|"OrdenEnvioCreada / Cambios"| SPP["Middleware SPP<br/>(Workers & APIs en K8s)"]:::spp
     SPP <-->|"Enriquecimiento"| Enrichment["APIs Normalización NDD / Geo / Sucursales"]:::spp
     SPP -->|"Persistencia AlwaysOn"| DBSORTER[("DBSORTER<br/>(Primario + Réplica Lectura)")]:::db
-    DBSORTER -->|"Eventos Kafka SPP"| SorterIn["Integración Sorter<br/>(Vertical, Trux, Wayzim, Hiops)"]:::spp
+    DBSORTER -->|"Eventos Kafka SPP"| SorterIn["Integración Sorter<br/>(Vertical, Trux, Wayzim, Giops)"]:::spp
     SorterIn <-->|"Capa Proveedor / PLC"| Hardware["Software de Máquina (Optisoft / Optimus)<br/>+ PLC Siemens S7-400"]:::machine
     Hardware -->|"Feedback de Clasificación"| SorterIn
     SorterIn -->|"Cierre de Trazabilidad"| DBSORTER

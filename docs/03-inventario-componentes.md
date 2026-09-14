@@ -102,7 +102,7 @@ Todos estos microservicios operan en el namespace **`TYD-SORTERS`** en ambiente 
 | `orden-envio-solicitada` | API Unificada | DMS, Integra | Inicia el pedido de creación de envío en los TMS. |
 | `orden-envio-creada` | DMS, Integra | `spp-altas-suscriber` | Notifica que la orden fue persistida y está lista para ingresar a SPP. |
 | `spp.alta-envio` | `publisher-events-spp` | `spptovertical-suscriber` | Notifica un nuevo paquete listo para clasificar en Vertical Sorter. |
-| `spp.asignacion-custodia` | `publisher-events-spp` | Sorters Regionales, Hiops/Jiops | Notifica asignación y toma de custodia por un clasificador. |
+| `spp.asignacion-custodia` | `publisher-events-spp` | Sorters Regionales, Giops | Notifica asignación y toma de custodia por un clasificador. |
 | `spp.cambio-destino` | `publisher-events-spp` / TMS | SPP, Sorters | Propaga cambios de sucursal o rampa solicitados dinámicamente. |
 | `spp.geocerca-calculada` | `publisher-events-spp` | Integra, `geocerca-consumer` | Difunde las coordenadas y zona calculada para sincronización de sistemas. |
 | `bulto-informado` | Sorters, Balanzas | `eventosaforo-api` | Emite la lectura cruda de escaneo y peso detectado. |

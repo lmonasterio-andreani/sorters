@@ -177,7 +177,7 @@ flowchart TD
 | **[S6]** | Software Proveedor y Hardware (Optisoft + Siemens S7-400) | Actividad de polling en `tb_evento`, ICMP Ping a `10.20.48.108` y SNMP a PLC. | **P1**: Sin actualización en `tb_evento` con bultos en cola > 5 min, o Host inalcanzable. |
 | **[S7]** | Publicador de Retorno (`verticaltoSpp-publisher`) | Estado del Pod en K8s, conectividad a Redis (`DBSORTERPROD`) y tasa de eventos emitidos. | **P1**: Pod caído o 0 bultos emitidos durante 10 min en franja operativa ("Tablero en Cero"). |
 | **[S8]** | Tableros Operativos (`spp-dashboard-ui`) | Disponibilidad HTTP 200 y tiempo de carga de vistas de supervisor. | **P2**: UI no accesible o `reportes-api` devolviendo errores de timeout. |
-| **[S9]** | Tópico de Custodia (`spp.asignacion-custodia`) | Lag de consumo de sorters regionales e in-house (Hiops/Jiops). | **P3**: Lag elevado en sucursales particulares (aislamiento de red en planta remota). |
+| **[S9]** | Tópico de Custodia (`spp.asignacion-custodia`) | Lag de consumo de sorters regionales e in-house (Giops). | **P3**: Lag elevado en sucursales particulares (aislamiento de red en planta remota). |
 | **[S10]** | Sincronización de Modificaciones (`spp.cambio-destino`) | Latencia de impacto de redirecciones solicitadas por clientes. | **P3**: Demora en la actualización de paquetes que cambiaron de sucursal. |
 
 ---

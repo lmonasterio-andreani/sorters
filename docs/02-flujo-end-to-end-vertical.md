@@ -141,7 +141,7 @@ sequenceDiagram
    - El servicio **`publisher-events-spp`** (.NET 6 en cluster CCE) detecta los registros insertados en `DBSORTER`.
 2. **Tópicos Emitidos**:
    - `spp.alta-envio`: Notifica la disponibilidad de un nuevo bulto listo para clasificación en clasificadores automatizados.
-   - `spp.asignacion-custodia`: Notifica la confirmación de custodia para sorters regionales e in-house (Hiops).
+   - `spp.asignacion-custodia`: Notifica la confirmación de custodia para sorters regionales e in-house (Giops).
    - `spp.cambio-destino`: Notifica modificaciones dinámicas de rampa o sucursal final.
    - `spp.geocerca-calculada`: Devuelve la información geocodificada hacia Integra y otros sistemas downstream.
 
