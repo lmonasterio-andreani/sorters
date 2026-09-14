@@ -1,0 +1,16 @@
+# OS generated files
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Large media files (>100MB cannot be pushed to GitHub)
+*.mp4
+*.mkv
+*.avi
+*.mov
+
+# IDE and temporary folders
+.vscode/
+.idea/
+.gemini/
+scratch/

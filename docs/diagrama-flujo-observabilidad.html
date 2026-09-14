@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama End-to-End de Observabilidad - Sorters Andreani</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --primary: #38bdf8;
+            --accent-red: #ef4444;
+            --accent-green: #22c55e;
+            --accent-yellow: #eab308;
+            --accent-purple: #a855f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .badge {
+            background: #0284c7;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            background: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .btn:hover {
+            background: #475569;
+            border-color: #64748b;
+        }
+
+        .btn-primary {
+            background: #0284c7;
+            border-color: #0369a1;
+        }
+
+        .btn-primary:hover {
+            background: #0369a1;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #diagram-container {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 30px;
+            cursor: grab;
+        }
+
+        #diagram-container:active {
+            cursor: grabbing;
+        }
+
+        #diagram-img {
+            max-width: none;
+            transition: transform 0.15s ease-out;
+            transform-origin: top center;
+            filter: drop-shadow(0 4px 6px -1px rgb(0 0 0 / 0.1));
+        }
+
+        .legend-drawer {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            max-width: 320px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <span class="badge">VERTICAL CIT</span>
+            <h1>Mapa de Flujo y Sensores de Observabilidad Sorters</h1>
+        </div>
+        <div class="toolbar">
+            <button class="btn" onclick="zoomIn()" title="Acercar (Zoom +)">🔍 +</button>
+            <button class="btn" onclick="zoomOut()" title="Alejar (Zoom -)">🔍 -</button>
+            <button class="btn" onclick="resetZoom()" title="Restablecer vista">↺ Reset</button>
+            <a href="diagrama-flujo-observabilidad.png" download class="btn" title="Descargar PNG">🖼️ Descargar PNG</a>
+            <a href="diagrama-flujo-observabilidad.svg" target="_blank" class="btn btn-primary" title="Abrir SVG en pantalla completa">↗ Abrir SVG</a>
+        </div>
+    </header>
+
+    <main>
+        <div id="diagram-container">
+            <img id="diagram-img" src="diagrama-flujo-observabilidad.svg" alt="Diagrama de Observabilidad Sorters Andreani">
+        </div>
+
+        <div class="legend-drawer">
+            <div class="legend-title">📌 Referencias de Capas</div>
+            <div class="legend-item"><div class="legend-color" style="background:#E1F5FE; border-color:#0288D1;"></div> <span>Capa de Clientes & API Unificada</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#F3E5F5; border-color:#7B1FA2;"></div> <span>TMS (DMS / Integra / Kafka)</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#E8F5E9; border-color:#388E3C;"></div> <span>Middleware SPP & Workers .NET</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#FFF3E0; border-color:#F57C00;"></div> <span>Bases de Datos (AlwaysOn / Redis)</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#FFEBEE; border-color:#D32F2F;"></div> <span>Clasificación Física (Optisoft/PLC)</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#FFF9C4; border-color:#FBC02D; border-style:dashed;"></div> <span><strong>Sensores de Monitoreo [S1..S8]</strong></span></div>
+        </div>
+    </main>
+
+    <script>
+        let currentZoom = 1;
+        const img = document.getElementById('diagram-img');
+        const container = document.getElementById('diagram-container');
+
+        function updateZoom() {
+            img.style.transform = `scale(${currentZoom})`;
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.15, 3.0);
+            updateZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.15, 0.4);
+            updateZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            updateZoom();
+        }
+
+        // Pan with mouse drag
+        let isDown = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+        });
+
+        container.addEventListener('mouseleave', () => { isDown = false; });
+        container.addEventListener('mouseup', () => { isDown = false; });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            const walkX = (x - startX) * 1.5;
+            const walkY = (y - startY) * 1.5;
+            container.scrollLeft = scrollLeft - walkX;
+            container.scrollTop = scrollTop - walkY;
+        });
+
+        // Wheel zoom with Ctrl or Alt
+        container.addEventListener('wheel', (e) => {
+            if (e.ctrlKey || e.altKey) {
+                e.preventDefault();
+                if (e.deltaY < 0) zoomIn();
+                else zoomOut();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
