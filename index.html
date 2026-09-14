@@ -504,35 +504,57 @@
       transform: scale(1.008);
     }
 
-    /* Lightbox Modal */
+    /* Lightbox Modal - Andreani Brand Identity */
     .lightbox-modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(15, 20, 30, 0.95);
-      backdrop-filter: blur(10px);
+      background: radial-gradient(circle at center, rgba(31, 40, 86, 0.94) 0%, rgba(15, 22, 48, 0.98) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       z-index: 9999;
       display: flex;
       flex-direction: column;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .lightbox-modal.active {
       opacity: 1;
       pointer-events: auto;
     }
     .lightbox-header {
-      padding: 14px 24px;
-      background: rgba(31, 40, 86, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #1f2856 0%, #151c3d 100%);
+      border-bottom: 2px solid #d71920;
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: #ffffff;
       z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+    .lightbox-brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+      max-width: 55%;
+    }
+    .lightbox-brand-badge {
+      background: #d71920;
+      color: #ffffff;
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(215, 25, 32, 0.4);
     }
     .lightbox-title {
       font-family: 'Rubik', sans-serif;
@@ -542,7 +564,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      max-width: 50%;
     }
     .lightbox-toolbar {
       display: flex;
@@ -550,30 +571,48 @@
       gap: 8px;
     }
     .lb-btn {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 6px;
-      padding: 6px 12px;
+      padding: 7px 12px;
       font-size: 0.82rem;
       font-family: 'Rubik', sans-serif;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      transition: all 0.15s ease;
+      gap: 6px;
+      transition: all 0.18s ease;
     }
     .lb-btn:hover {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: #ffffff;
+      background: rgba(215, 25, 32, 0.25);
+      border-color: #d71920;
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .lb-btn:active {
+      transform: translateY(0);
+    }
+    .lb-btn.lb-btn-accent {
+      border-color: rgba(212, 161, 64, 0.4);
+      color: #ffd885;
+    }
+    .lb-btn.lb-btn-accent:hover {
+      background: rgba(212, 161, 64, 0.2);
+      border-color: #d4a140;
+      color: #ffffff;
     }
     .lb-btn.lb-close {
-      background: #d71920;
-      border-color: #b6040b;
+      background: linear-gradient(135deg, #d71920 0%, #b6040b 100%);
+      border: 1px solid #d71920;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(215, 25, 32, 0.4);
     }
     .lb-btn.lb-close:hover {
-      background: #b6040b;
+      background: linear-gradient(135deg, #e3222a 0%, #c40910 100%);
+      border-color: #ff4d56;
+      box-shadow: 0 4px 14px rgba(215, 25, 32, 0.6);
     }
     .lightbox-body {
       flex: 1;
@@ -599,31 +638,69 @@
     }
     .lightbox-canvas img {
       max-width: none !important;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-      border-radius: 8px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 0 2px rgba(215, 25, 32, 0.35);
+      border-radius: 10px;
       background: #ffffff;
-      padding: 16px;
+      padding: 20px;
       display: block;
       pointer-events: auto;
+      transition: box-shadow 0.2s ease;
     }
     .lightbox-footer {
-      padding: 12px 24px;
-      background: rgba(31, 40, 86, 0.95);
+      padding: 11px 24px;
+      background: linear-gradient(135deg, #151c3d 0%, #1f2856 100%);
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.8);
       z-index: 100;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.25);
+    }
+    .lightbox-hints {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .lightbox-hint-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .lightbox-hint-tag {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffd885;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 600;
+      font-size: 0.74rem;
+    }
+    .lightbox-footer-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .lightbox-brand-credit {
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.3px;
+    }
+    .lightbox-brand-credit strong {
+      color: #ffffff;
     }
     .zoom-indicator {
       font-family: 'Rubik', sans-serif;
       font-weight: 700;
       color: #ffffff;
-      background: #d71920;
-      padding: 3px 10px;
-      border-radius: 5px;
+      background: linear-gradient(135deg, #d71920 0%, #b6040b 100%);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      box-shadow: 0 2px 8px rgba(215, 25, 32, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
@@ -682,13 +759,16 @@
   <!-- Interactive Lightbox Zoom Modal -->
   <div id="lightbox-modal" class="lightbox-modal">
     <div class="lightbox-header">
-      <div class="lightbox-title" id="lightbox-title">Visualizador de Diagrama</div>
+      <div class="lightbox-brand-group">
+        <span class="lightbox-brand-badge">ANDREANI</span>
+        <div class="lightbox-title" id="lightbox-title">Visualizador de Diagrama</div>
+      </div>
       <div class="lightbox-toolbar">
         <button class="lb-btn" onclick="zoomIn()" title="Acercar (+)">🔍 +</button>
         <button class="lb-btn" onclick="zoomOut()" title="Alejar (-)">🔍 -</button>
         <button class="lb-btn" onclick="resetZoom()" title="Tamaño 100%">100%</button>
         <button class="lb-btn" onclick="fitToScreen()" title="Ajustar a pantalla">⛶ Ajustar</button>
-        <button class="lb-btn" onclick="openOriginal()" title="Abrir SVG/Imagen en nueva pestaña">↗️ Abrir Original</button>
+        <button class="lb-btn lb-btn-accent" onclick="openOriginal()" title="Abrir SVG/Imagen en nueva pestaña">↗️ Abrir Original</button>
         <button class="lb-btn lb-close" onclick="closeLightbox()" title="Cerrar (Esc)">✕</button>
       </div>
     </div>
@@ -698,8 +778,21 @@
       </div>
     </div>
     <div class="lightbox-footer">
-      <span>💡 <b>Zoom:</b> Rueda del ratón o botones (+) (-). <b>Mover:</b> Haz clic y arrastra. <b>Cerrar:</b> Tecla ESC o botón (✕).</span>
-      <span class="zoom-indicator" id="zoom-indicator">100%</span>
+      <div class="lightbox-hints">
+        <span class="lightbox-hint-item">
+          <span class="lightbox-hint-tag">Zoom</span> Rueda del ratón o botones (+) (-)
+        </span>
+        <span class="lightbox-hint-item">
+          <span class="lightbox-hint-tag">Mover</span> Clic y arrastrar
+        </span>
+        <span class="lightbox-hint-item">
+          <span class="lightbox-hint-tag">Cerrar</span> Tecla ESC o botón (✕)
+        </span>
+      </div>
+      <div class="lightbox-footer-right">
+        <span class="lightbox-brand-credit">Grupo Logístico <strong>Andreani</strong></span>
+        <span class="zoom-indicator" id="zoom-indicator">100%</span>
+      </div>
     </div>
   </div>
 
