@@ -1,6 +1,6 @@
-# 06. Guía de Identidad Visual Corporativa (Cartesian CSS)
+# Guía de Identidad Visual Corporativa (Cartesian CSS) - Uso Interno
 
-Esta guía documenta la integración del **Sistema de Diseño Cartesian de Andreani** implementado a nivel de **estilos CSS nativos** en este repositorio y en el portal de observabilidad.
+Esta guía técnica interna documenta la integración del **Sistema de Diseño Cartesian de Andreani** implementado a nivel de **estilos CSS nativos** para los desarrolladores y diseñadores del proyecto. No forma parte del catálogo funcional de Sorters.
 
 ---
 

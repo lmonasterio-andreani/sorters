@@ -15,14 +15,14 @@ En esta carpeta se consolida todo el trabajo de modelado, inventario, diseño de
 | **03** | [**`03-inventario-componentes.md`**](./03-inventario-componentes.md) | Catálogo unificado de más de 50 microservicios, tópicos Kafka, bases AlwaysOn SQL Server, Redis y 20 PCs industriales de Sorters. | DevOps, SRE, DBA, Soporte L2/L3 |
 | **04** | [**`04-estrategia-observabilidad.md`**](./04-estrategia-observabilidad.md) | Los 4 pilares de monitoreo, matriz de SLIs/SLOs, clasificación de alarmas P1 a P3 y runbooks operativos ante incidentes críticos. | Equipos de Observabilidad, Centro de Control (NOC), Guardias |
 | **05** | [**`05-flujo-observabilidad.md`**](./05-flujo-observabilidad.md) | Mapa integral de flujo de datos con la especificación de los 10 sensores de monitoreo (S1 a S10) y diagramas interactivos. | Todos los equipos técnicos |
-| **06** | [**`06-guia-estilos-cartesian.md`**](./06-guia-estilos-cartesian.md) | Especificación de identidad corporativa Andreani: tokens CSS nativos, paleta cromática, tipografías Rubik/Roboto y dark mode. | Desarrolladores Frontend, Arquitectura |
 
 ---
 
-## 🎨 Subdirectorios de Recursos
+## 🎨 Subdirectorios y Recursos Internos
 
 - [**`diagramas/`**](./diagramas/README.md): Repositorio centralizado con todos los diagramas vectoriales SVG, gráficos PNG y visores interactivos HTML.
 - **`assets/`**: Hojas de estilo corporativas ([`cartesian.css`](./assets/cartesian.css)) y recursos visuales.
+- [**`guia-estilos-cartesian.md`**](./guia-estilos-cartesian.md): **Guía interna** del sistema de diseño Andreani Cartesian y tokens de estilo para desarrolladores. *(No visible en el menú principal del portal)*.
 
 ---
 

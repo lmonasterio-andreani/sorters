@@ -58,5 +58,5 @@ Todo el material en bruto de esta carpeta ha sido normalizado y sintetizado en l
 | **Planilla Toma de Servicio** (`planillas/`) | [**`docs/03-inventario-componentes.md`**](../docs/03-inventario-componentes.md) |
 | **Estrategia y Acuerdos de Monitoreo** | [**`docs/04-estrategia-observabilidad.md`**](../docs/04-estrategia-observabilidad.md) |
 | **Diagrama Fuente Draw.io** (`diagramas/`) | [**`docs/05-flujo-observabilidad.md`**](../docs/05-flujo-observabilidad.md) y [**`docs/diagramas/`**](../docs/diagramas/) |
-| **Identidad Visual Corporativa** | [**`docs/06-guia-estilos-cartesian.md`**](../docs/06-guia-estilos-cartesian.md) |
+| **Identidad Visual Corporativa (Interna)** | [**`docs/guia-estilos-cartesian.md`**](../docs/guia-estilos-cartesian.md) |
 | **Portal Unificado Interactivo** | [**`Sorters.html`**](../Sorters.html) |

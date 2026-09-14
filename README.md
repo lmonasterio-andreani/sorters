@@ -21,8 +21,9 @@ Todo el trabajo y especificaciones del proyecto se concentran en [**`docs/`**](.
 | 📋 [**03. Catálogo e Inventario de Componentes**](./docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
 | 🎯 [**04. Estrategia de Observabilidad Integral**](./docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
 | 🗺️ [**05. Diagrama E2E y Sensores de Monitoreo**](./docs/05-flujo-observabilidad.md) | Mapa visual que detalla el flujo de datos junto con los 10 sensores de monitoreo recomendados (S1 a S10) y mitigación de SPOFs. | Todos los equipos técnicos |
-| 🎨 [**06. Identidad Visual Corporativa (Cartesian CSS)**](./docs/06-guia-estilos-cartesian.md) | Guía del sistema de diseño de Andreani: tokens nativos de diseño, paleta cromática (Rojo Andreani `#d71920`, Azul `#1f2856`), tipografías Rubik/Roboto y espaciados. | Desarrolladores, Frontend, UX |
 | 🎨 [**docs/diagramas/**](./docs/diagramas/README.md) | Repositorio centralizado con todos los diagramas vectoriales SVG, renders PNG y visor HTML interactivo. | Arquitectura y Observabilidad |
+
+> 🎨 *Nota técnica interna:* El repositorio incluye la especificación de diseño Andreani Cartesian en [**`docs/guia-estilos-cartesian.md`**](./docs/guia-estilos-cartesian.md) y estilos en [**`docs/assets/cartesian.css`**](./docs/assets/cartesian.css) para uso exclusivo de desarrollo del portal.
 
 ---
 
