@@ -18,6 +18,7 @@ Este repositorio centraliza toda la documentación técnica, diagramas de arquit
 | 📋 [**03. Catálogo e Inventario de Componentes**](docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
 | 🎯 [**04. Estrategia de Observabilidad Integral**](docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
 | 🗺️ [**Diagrama E2E de Observabilidad (Mermaid)**](docs/diagrama-flujo-observabilidad.md) | Diagrama visual interactivo y renderizable en Markdown que mapea los flujos de datos junto con los puntos de control y sensores de monitoreo recomendados. | Todos los equipos |
+| 🎨 [**05. Identidad Visual Corporativa (Cartesian CSS)**](docs/05-guia-estilos-cartesian.md) | Guía del sistema de diseño de Andreani a nivel de estilos CSS nativos: colores institucionales, tipografías Rubik/Roboto, espaciados y dark mode. | Desarrolladores, Arquitectura, Frontend |
 | 📁 [**Relevamiento/**](Relevamiento/README.md) | Carpeta de trabajo con los documentos en bruto, tomas de servicio, minutas y grabaciones recopiladas en reuniones con los equipos técnicos. | Equipo de Observabilidad y Arquitectura |
 
 ---
