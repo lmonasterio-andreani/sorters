@@ -9,7 +9,7 @@ Este clasificador de bandejas verticales/cross-belt clasifica paquetería están
 
 ## 2. Diagrama de Secuencia End-to-End
 
-![Diagrama de Secuencia Vertical Sorter](./flujo-vertical.svg)
+![Diagrama de Secuencia Vertical Sorter](./diagramas/flujo-vertical.svg)
 
 ---
 

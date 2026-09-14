@@ -4,33 +4,36 @@ Bienvenido a la Base de Conocimiento oficial para la arquitectura, operación y 
 
 Este repositorio centraliza toda la documentación técnica, diagramas de arquitectura, inventario de componentes y estrategias de monitoreo, con el objetivo de garantizar la trazabilidad integral, disponibilidad operativa y resolución ágil de incidentes.
 
-> 🌐 **Portal Home Page Unificado:** Puedes abrir directamente [**`Sorter.html`**](./Sorter.html) en cualquier navegador para recorrer toda la documentación, diagramas vectoriales y fichas técnicas de manera interactiva.
+> 🌐 **Portal Home Page Unificado:** Abre directamente [**`Sorters.html`**](./Sorters.html) en cualquier navegador para recorrer toda la documentación, diagramas vectoriales interactivos y fichas técnicas con identidad corporativa Andreani Cartesian.
 
 ---
 
-## 🧭 Mapa de Navegación
+## 🧭 Mapa de Navegación del Repositorio
+
+### 📚 Documentación Técnica Oficial (`docs/`)
+Todo el trabajo y especificaciones del proyecto se concentran en [**`docs/`**](./docs/README.md):
 
 | Documento / Carpeta | Descripción | Audiencia Principal |
 | :--- | :--- | :--- |
-| 🌐 [**Sorter.html (Home Page)**](./Sorter.html) | Portal web interactivo con menú lateral y visualización integrada de todos los documentos y diagramas. | Toda la Organización |
-| 📘 [**01. Arquitectura General y Ecosistema**](docs/01-arquitectura-general.md) | Visión macro del negocio logístico, tipología de Sorters (Vertical, TruxSorter, Wayzim, Giops, Regionales) y capas tecnológicas (TMS, SPP, Bases AlwaysOn, Hardware). | Arquitectura, Líderes Técnicos, Operaciones |
-| ⚡ [**02. Flujo End-to-End: Vertical Sorter**](docs/02-flujo-end-to-end-vertical.md) | Recorrido paso a paso del flujo de datos y paquetería desde la ingesta del cliente hasta la inducción física, clasificación y retroalimentación a dashboards. Incluye resiliencia de Rampa 6. | Desarrolladores, SysAdmins, Observabilidad |
-| 📋 [**03. Catálogo e Inventario de Componentes**](docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
-| 🎯 [**04. Estrategia de Observabilidad Integral**](docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
-| 🗺️ [**Diagrama E2E de Observabilidad (Mermaid)**](docs/diagrama-flujo-observabilidad.md) | Diagrama visual interactivo y renderizable en Markdown que mapea los flujos de datos junto con los puntos de control y sensores de monitoreo recomendados. | Todos los equipos |
-| 🎨 [**05. Identidad Visual Corporativa (Cartesian CSS)**](docs/05-guia-estilos-cartesian.md) | Guía del sistema de diseño de Andreani a nivel de estilos CSS nativos: colores institucionales, tipografías Rubik/Roboto, espaciados y dark mode. | Desarrolladores, Arquitectura, Frontend |
-| 📁 [**Relevamiento/**](Relevamiento/README.md) | Carpeta de trabajo con los documentos en bruto, tomas de servicio, minutas y grabaciones recopiladas en reuniones con los equipos técnicos. | Equipo de Observabilidad y Arquitectura |
+| 🌐 [**Sorters.html (Home Page)**](./Sorters.html) | Portal web interactivo con menú lateral, buscador, visualizador zoom y modo oscuro/claro. | Toda la Organización |
+| 📘 [**01. Arquitectura General y Ecosistema**](./docs/01-arquitectura-general.md) | Visión macro del negocio logístico, tipología de Sorters (Vertical, TruxSorter, Wayzim, Giops, Regionales) y capas tecnológicas (TMS, SPP, Bases AlwaysOn, Hardware). | Arquitectura, Líderes Técnicos, Operaciones |
+| ⚡ [**02. Flujo End-to-End: Vertical Sorter**](./docs/02-flujo-end-to-end-vertical.md) | Recorrido paso a paso del flujo de datos y paquetería desde la ingesta del cliente hasta la inducción física, clasificación y retroalimentación a dashboards. Incluye resiliencia de Rampa 6. | Desarrolladores, SysAdmins, Observabilidad |
+| 📋 [**03. Catálogo e Inventario de Componentes**](./docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
+| 🎯 [**04. Estrategia de Observabilidad Integral**](./docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
+| 🗺️ [**05. Diagrama E2E y Sensores de Monitoreo**](./docs/05-flujo-observabilidad.md) | Mapa visual que detalla el flujo de datos junto con los 10 sensores de monitoreo recomendados (S1 a S10) y mitigación de SPOFs. | Todos los equipos técnicos |
+| 🎨 [**06. Identidad Visual Corporativa (Cartesian CSS)**](./docs/06-guia-estilos-cartesian.md) | Guía del sistema de diseño de Andreani: tokens nativos de diseño, paleta cromática (Rojo Andreani `#d71920`, Azul `#1f2856`), tipografías Rubik/Roboto y espaciados. | Desarrolladores, Frontend, UX |
+| 🎨 [**docs/diagramas/**](./docs/diagramas/README.md) | Repositorio centralizado con todos los diagramas vectoriales SVG, renders PNG y visor HTML interactivo. | Arquitectura y Observabilidad |
 
 ---
 
-## 📁 Carpeta Relevamiento (Fuentes y Minutas)
+### 📁 Relevamiento y Fuentes de Campo (`relevamiento/`)
+En [**`relevamiento/`**](./relevamiento/README.md) se organizan los materiales de origen agrupados por tipología:
 
-Dentro del directorio [**`Relevamiento/`**](./Relevamiento/README.md) se resguardan todos los documentos y evidencias recopilados durante las reuniones técnicas con los equipos:
-- **`Observabilidad integral de los Sorters 01.docx`**: Minuta y notas detalladas del relevamiento técnico.
-- **`Toma_de_Servicio - Sorters.xlsx`**: Planilla maestra de toma de servicio con el inventario de microservicios, APIs, workers, repositorios, namespaces, IPs de PCs y responsables.
-- **`mapa de monitoreo sorter.drawio`**: Diagrama fuente de trabajo editable en Draw.io.
-- **`Diagrama01.png`**: Diagrama preliminar de arquitectura analizado en las sesiones.
-- **`Observabilidad integral de los Sorters-20260810_140911-Grabación de la reunión.mp4`**: Grabación en video de la reunión técnica de arquitectura y traspaso.
+- 🎙️ [**`relevamiento/reuniones/`**](./relevamiento/reuniones/README.md): Minuta técnica (`Observabilidad integral de los Sorters 01.docx`) y grabación en video de la sesión de arquitectura (`.mp4`).
+- 📐 [**`relevamiento/diagramas/`**](./relevamiento/diagramas/README.md): Fuentes preliminares y diagramas editables de trabajo (`mapa de monitoreo sorter.drawio`, `Diagrama01.png`).
+- 📊 [**`relevamiento/planillas/`**](./relevamiento/planillas/README.md): Matriz técnica exhaustiva de relevamiento (`Toma_de_Servicio - Sorters.xlsx`).
+
+---
 
 ## 📌 Contexto de Negocio y Rol de los Sorters
 
@@ -45,19 +48,20 @@ El sistema pivote que articula la lógica de negocio y prepara los datos para la
 
 ## 🏗️ Arquitectura en Capas Resumida
 
-![Arquitectura en Capas Resumida](./docs/arquitectura-resumida.svg)
+![Arquitectura en Capas Resumida](./docs/diagramas/arquitectura-resumida.svg)
 
 ---
 
 ## 💡 Hito Inicial: Vertical Sorter (CIT 1° Piso)
-Siguiendo las definiciones del equipo de Arquitectura y Observabilidad, el primer hito de modelado y monitoreo integral se focaliza en el **Vertical Sorter**. 
-Este sistema reúne todos los desafíos de integración:
-- Microservicios en Kubernetes
-- Eventos asíncronos en Apache Kafka (AMQ Streams)
-- Base de datos relacional en alta disponibilidad AlwaysOn (DBSORTER e Integración Vertical)
-- Almacenamiento de estado / cursor en Redis (DBSORTERPROD)
-- Interfaz bidireccional con software de fabricante
-- Hardware de control industrial
-- Circuito de auto-recuperación de excepciones por Rampa 6 (job-spptovertical)
 
-Una vez consolidado y monitoreado este circuito, el modelo se replica para los demás tipos de clasificadores.
+Siguiendo las definiciones del equipo de Arquitectura y Observabilidad, el primer hito de modelado y monitoreo integral se focaliza en el **Vertical Sorter**. 
+Este clasificador reúne todos los desafíos de integración:
+- Microservicios en Kubernetes (`TYD-SPP` y `TYD-SORTERS`)
+- Eventos asíncronos en Apache Kafka (AMQ Streams)
+- Base de datos relacional en alta disponibilidad AlwaysOn (`DBSORTER` e `Integración Vertical`)
+- Almacenamiento de estado y cursor en Redis (`DBSORTERPROD`)
+- Interfaz bidireccional con software de fabricante (Optisoft)
+- Hardware de control industrial (PLC Siemens Simatic S7-400)
+- Circuito de auto-recuperación de excepciones por Rampa 6 (`job-spptovertical`)
+
+Una vez consolidado y monitoreado este circuito, el modelo se replica para los demás tipos de clasificadores de la red (TruxSorter, Wayzim, Giops y Regionales).

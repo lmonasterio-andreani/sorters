@@ -1,4 +1,4 @@
-# Diagrama End-to-End de Observabilidad: Ecosistema Sorters
+# 05. Diagrama End-to-End de Observabilidad: Ecosistema Sorters
 
 Este documento contiene el **mapa integral de observabilidad** del circuito de Sorters, con foco en el **Vertical Sorter (CIT 1° Piso)**. Representa el flujo de información y paquetería de punta a punta, señalizando los **puntos de control y sensores de monitoreo (S1 a S10)** recomendados para la instrumentación.
 
@@ -7,11 +7,11 @@ Este documento contiene el **mapa integral de observabilidad** del circuito de S
 ## 🗺️ Diagrama de Arquitectura y Puntos de Control
 
 > 💡 **Formatos disponibles para ver el diagrama con flechas y colores:**
-> - 🌐 **Visor Interactivo:** Abrir [`diagrama-flujo-observabilidad.html`](./diagrama-flujo-observabilidad.html) en tu navegador con zoom y navegación.
-> - 🖼️ **Imagen Vectorial:** Abrir [`diagrama-flujo-observabilidad.svg`](./diagrama-flujo-observabilidad.svg) o [`diagrama-flujo-observabilidad.png`](./diagrama-flujo-observabilidad.png).
-> - 👁️ **En el Editor (IDE):** Presiona `Ctrl + Shift + V` (o `Ctrl + K, V`) para abrir la vista previa Markdown de este archivo.
+> - 🌐 **Visor Interactivo:** Abrir [`diagramas/diagrama-flujo-observabilidad.html`](./diagramas/diagrama-flujo-observabilidad.html) en tu navegador con zoom y navegación.
+> - 🖼️ **Imagen Vectorial:** Abrir [`diagramas/diagrama-flujo-observabilidad.svg`](./diagramas/diagrama-flujo-observabilidad.svg) o [`diagramas/diagrama-flujo-observabilidad.png`](./diagramas/diagrama-flujo-observabilidad.png).
+> - 📁 **Catálogo Completo:** Ver todos los diagramas en [**`docs/diagramas/`**](./diagramas/README.md).
 
-![Diagrama End-to-End de Observabilidad Sorters](./diagrama-flujo-observabilidad.svg)
+![Diagrama End-to-End de Observabilidad Sorters](./diagramas/diagrama-flujo-observabilidad.svg)
 
 ---
 

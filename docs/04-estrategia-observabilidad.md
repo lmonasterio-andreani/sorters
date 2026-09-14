@@ -10,7 +10,7 @@ La observabilidad del ecosistema de Sorters tiene como meta garantizar:
 
 ## 2. Los Cuatro Pilares de Observabilidad
 
-![Cuatro Pilares de Observabilidad](./pilares-observabilidad.svg)
+![Cuatro Pilares de Observabilidad](./diagramas/pilares-observabilidad.svg)
 
 ---
 

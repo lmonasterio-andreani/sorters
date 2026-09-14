@@ -2,7 +2,7 @@
 
 Este inventario consolida todos los componentes de software, mensajería, bases de datos y hardware relevados a partir de la toma de servicio de Sorters, la sesión de arquitectura técnica y los registros de infraestructura.
 
-> 📁 **Documentos fuente de relevamiento:** El detalle original de componentes, repositorios, accesos y minutas de reuniones se encuentra resguardado en la carpeta [**`Relevamiento/`**](../Relevamiento/README.md) (especialmente en `Toma_de_Servicio - Sorters.xlsx` y `Observabilidad integral de los Sorters 01.docx`).
+> 📁 **Documentos fuente de relevamiento:** El detalle original de componentes, repositorios, accesos y minutas de reuniones se encuentra resguardado en la carpeta [**`relevamiento/`**](../relevamiento/README.md) (especialmente en [**`relevamiento/planillas/Toma_de_Servicio - Sorters.xlsx`**](../relevamiento/planillas/Toma_de_Servicio%20-%20Sorters.xlsx) y [**`relevamiento/reuniones/`**](../relevamiento/reuniones/README.md)).
 
 ---
 

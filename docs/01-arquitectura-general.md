@@ -11,7 +11,7 @@ El objetivo central de la automatización mediante Sorters es maximizar la veloc
 
 En la red logística de Andreani conviven distintas tecnologías y fabricantes de Sorters, adaptados al tipo de bulto y al volumen de la planta:
 
-![Tipología de Sorters](./tipologia-sorters.svg)
+![Tipología de Sorters](./diagramas/tipologia-sorters.svg)
 
 ### Detalle de cada tecnología:
 1. **Vertical Sorter (CIT 1° Piso - Central Inteligente de Transferencia)**:
@@ -38,7 +38,7 @@ En la red logística de Andreani conviven distintas tecnologías y fabricantes d
 
 El ecosistema se organiza en **cinco capas tecnológicas**, garantizando el desacoplamiento entre los sistemas comerciales de venta y las máquinas físicas de planta:
 
-![Capas Tecnológicas](./capas-tecnologicas.svg)
+![Capas Tecnológicas](./diagramas/capas-tecnologicas.svg)
 
 ---
 

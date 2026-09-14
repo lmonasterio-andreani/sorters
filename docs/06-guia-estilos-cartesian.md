@@ -1,4 +1,4 @@
-# Guía de Identidad Visual Corporativa (Cartesian CSS)
+# 06. Guía de Identidad Visual Corporativa (Cartesian CSS)
 
 Esta guía documenta la integración del **Sistema de Diseño Cartesian de Andreani** implementado a nivel de **estilos CSS nativos** en este repositorio y en el portal de observabilidad.
 
@@ -12,7 +12,7 @@ El sistema **Cartesian** estandariza tokens de diseño organizados jerárquicame
 2. **Tokens Semánticos**: Asignación de intención funcional (superficie, fondo, texto, bordes, estados de interacción como hover, pressed o disabled).
 3. **Soporte Bimodal**: Variables adaptativas automáticas para **Light Mode** y **Dark Mode**.
 
-El archivo canonical de este repositorio es [`cartesian.css`](../cartesian.css), utilizable directamente en cualquier página HTML sin necesidad de empaquetadores ni dependencias externas.
+El archivo canonical de este repositorio es [`docs/assets/cartesian.css`](./assets/cartesian.css), utilizable directamente en cualquier página HTML sin necesidad de empaquetadores ni dependencias externas.
 
 ---
 
