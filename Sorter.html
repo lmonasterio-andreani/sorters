@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
   <!-- Google Fonts: Rubik & Roboto (Tipografía oficial Andreani) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
   <!-- GitHub Markdown Light CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.0/github-markdown-light.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.0/github-markdown-light.min.css">
   <!-- Marked.js -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <!-- Mermaid.js -->
@@ -17,21 +21,34 @@
   <style>
     :root {
       /* Paleta Corporativa Oficial Andreani */
-      --primary: #d71920;          /* Rojo insignia Andreani */
-      --primary-hover: #b6040b;    /* Rojo profundo/hover */
-      --primary-light: #fbe8e9;    /* Tinte rojizo suave corporativo */
-      --primary-border: #f1a27d;   /* Borde suave cálido */
-      --secondary: #1f2856;        /* Azul noche/marino institucional Andreani */
-      --secondary-light: #edeffb;  /* Fondo sutil azul institucional */
-      --accent: #d4a140;           /* Amarillo/Ámbar de señalética y logística */
-      --accent-light: #fff9ed;     /* Tinte ámbar suave */
-      
-      --bg-page: #f4f6f9;          /* Gris perla neutro muy limpio */
-      --bg-content: #ffffff;       /* Fondo de tarjetas */
-      --text-main: #1f2856;        /* Azul oscuro para títulos y jerarquía */
-      --text-body: #3a4046;        /* Gris antracita de alta legibilidad */
-      --text-muted: #6b7280;       /* Gris medio para metadatos */
-      
+      --primary: #d71920;
+      /* Rojo insignia Andreani */
+      --primary-hover: #b6040b;
+      /* Rojo profundo/hover */
+      --primary-light: #fbe8e9;
+      /* Tinte rojizo suave corporativo */
+      --primary-border: #f1a27d;
+      /* Borde suave cálido */
+      --secondary: #1f2856;
+      /* Azul noche/marino institucional Andreani */
+      --secondary-light: #edeffb;
+      /* Fondo sutil azul institucional */
+      --accent: #d4a140;
+      /* Amarillo/Ámbar de señalética y logística */
+      --accent-light: #fff9ed;
+      /* Tinte ámbar suave */
+
+      --bg-page: #f4f6f9;
+      /* Gris perla neutro muy limpio */
+      --bg-content: #ffffff;
+      /* Fondo de tarjetas */
+      --text-main: #1f2856;
+      /* Azul oscuro para títulos y jerarquía */
+      --text-body: #3a4046;
+      /* Gris antracita de alta legibilidad */
+      --text-muted: #6b7280;
+      /* Gris medio para metadatos */
+
       --sidebar-bg: #ffffff;
       --sidebar-border: #e2e8f0;
       --sidebar-item-hover: #fbe8e9;
@@ -48,13 +65,13 @@
       --secondary-light: #161d30;
       --accent: #f5b041;
       --accent-light: #2c2211;
-      
+
       --bg-page: #0e131d;
       --bg-content: #161e2b;
       --text-main: #f4f7fb;
       --text-body: #d1d5db;
       --text-muted: #9ca3af;
-      
+
       --sidebar-bg: #121824;
       --sidebar-border: #1f2a3e;
       --sidebar-item-hover: #26161a;
@@ -62,8 +79,12 @@
       --card-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.6);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       display: flex;
@@ -74,7 +95,12 @@
       transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-family: 'Rubik', sans-serif;
       color: var(--text-main);
     }
@@ -91,6 +117,7 @@
       z-index: 10;
       transition: background-color 0.2s, border-color 0.2s;
     }
+
     .sidebar-header {
       padding: 20px 18px;
       background: linear-gradient(135deg, #d71920 0%, #b6040b 100%);
@@ -98,12 +125,14 @@
       box-shadow: 0 4px 10px rgba(182, 4, 11, 0.25);
       position: relative;
     }
+
     .sidebar-brand-badge {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 8px;
     }
+
     .andreani-pill {
       font-family: 'Rubik', sans-serif;
       font-size: 0.72rem;
@@ -114,8 +143,9 @@
       padding: 2px 8px;
       border-radius: 4px;
       text-transform: uppercase;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     }
+
     .status-badge {
       font-size: 0.68rem;
       font-weight: 600;
@@ -127,6 +157,7 @@
       padding: 2px 8px;
       border-radius: 12px;
     }
+
     .status-badge .dot {
       width: 6px;
       height: 6px;
@@ -134,6 +165,7 @@
       border-radius: 50%;
       box-shadow: 0 0 6px #4ade80;
     }
+
     .sidebar-header h2 {
       font-size: 1.15rem;
       font-weight: 700;
@@ -144,6 +176,7 @@
       gap: 8px;
       color: #ffffff;
     }
+
     .sidebar-header p {
       font-size: 0.78rem;
       color: rgba(255, 255, 255, 0.9);
@@ -155,6 +188,7 @@
       border-bottom: 1px solid var(--sidebar-border);
       background: var(--sidebar-bg);
     }
+
     .sidebar-search input {
       width: 100%;
       padding: 9px 14px;
@@ -167,6 +201,7 @@
       outline: none;
       transition: all 0.2s ease;
     }
+
     .sidebar-search input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.12);
@@ -179,9 +214,11 @@
       overflow-y: auto;
       flex: 1;
     }
+
     .nav-item {
       margin-bottom: 5px;
     }
+
     .nav-link {
       display: block;
       padding: 10px 14px;
@@ -196,11 +233,13 @@
       border: 1px solid transparent;
       line-height: 1.35;
     }
+
     .nav-link:hover {
       background: var(--sidebar-item-hover);
       color: var(--primary);
       transform: translateX(2px);
     }
+
     .nav-link.active {
       background: linear-gradient(135deg, #d71920 0%, #ba0811 100%);
       color: #ffffff !important;
@@ -209,6 +248,7 @@
       border-color: transparent;
       transform: none;
     }
+
     .sidebar-footer {
       padding: 14px 16px;
       font-size: 0.74rem;
@@ -221,6 +261,7 @@
       flex-direction: column;
       gap: 3px;
     }
+
     .sidebar-footer strong {
       color: var(--primary);
     }
@@ -240,6 +281,7 @@
       margin: 0 auto;
       transition: max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .content-wrapper.wide-mode {
       max-width: 96% !important;
     }
@@ -253,6 +295,7 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--border-color);
     }
+
     .doc-breadcrumbs {
       font-size: 0.88rem;
       font-weight: 600;
@@ -262,16 +305,19 @@
       align-items: center;
       gap: 7px;
     }
+
     .doc-breadcrumbs span.active-doc {
       color: var(--primary);
       background: var(--primary-light);
       padding: 3px 10px;
       border-radius: 6px;
     }
+
     .top-actions {
       display: flex;
       gap: 10px;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -288,12 +334,14 @@
       transition: all 0.18s ease;
       box-shadow: 0 1px 3px rgba(31, 40, 86, 0.06);
     }
+
     .btn:hover {
       background: var(--primary-light);
       border-color: var(--primary);
       color: var(--primary);
       transform: translateY(-1px);
     }
+
     .btn.active {
       background: var(--primary);
       color: #ffffff;
@@ -320,11 +368,16 @@
       line-height: 1.72;
       font-family: 'Roboto', sans-serif;
     }
-    .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3,
+    .markdown-body h4 {
       font-family: 'Rubik', sans-serif !important;
       color: var(--text-main) !important;
       font-weight: 700;
     }
+
     .markdown-body h1 {
       font-size: 1.85rem;
       border-bottom: 2px solid var(--primary-light) !important;
@@ -332,6 +385,7 @@
       margin-bottom: 24px;
       position: relative;
     }
+
     .markdown-body h1::after {
       content: '';
       position: absolute;
@@ -341,6 +395,7 @@
       height: 2px;
       background: var(--primary);
     }
+
     .markdown-body h2 {
       font-size: 1.35rem;
       border-bottom: 1px solid var(--border-color) !important;
@@ -348,21 +403,25 @@
       margin-top: 36px;
       margin-bottom: 16px;
     }
+
     .markdown-body h3 {
       font-size: 1.15rem;
       margin-top: 26px;
       margin-bottom: 12px;
     }
+
     .markdown-body a {
       color: var(--primary) !important;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.15s ease;
     }
+
     .markdown-body a:hover {
       color: var(--primary-hover) !important;
       text-decoration: underline;
     }
+
     .markdown-body table {
       display: table;
       width: 100%;
@@ -372,8 +431,9 @@
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border-color) !important;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
     }
+
     .markdown-body table th {
       background-color: var(--bg-page) !important;
       color: var(--text-main) !important;
@@ -383,6 +443,7 @@
       padding: 12px 16px;
       font-size: 0.88rem;
     }
+
     .markdown-body table td {
       border-color: var(--border-color) !important;
       color: var(--text-body) !important;
@@ -390,9 +451,11 @@
       background: var(--bg-content) !important;
       font-size: 0.9rem;
     }
+
     .markdown-body table tr:hover td {
       background-color: rgba(215, 25, 32, 0.02) !important;
     }
+
     .markdown-body blockquote {
       border-left: 4px solid var(--primary) !important;
       background: var(--primary-light) !important;
@@ -401,9 +464,11 @@
       border-radius: 0 10px 10px 0;
       margin: 20px 0;
     }
+
     .markdown-body blockquote p {
       color: var(--text-main) !important;
     }
+
     .markdown-body code {
       background: var(--primary-light) !important;
       color: var(--primary-hover) !important;
@@ -413,18 +478,21 @@
       font-size: 88%;
       font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
     }
+
     .markdown-body pre code {
       background: transparent !important;
       color: inherit !important;
       font-weight: normal;
       padding: 0;
     }
+
     .markdown-body pre {
       background: var(--bg-page) !important;
       border: 1px solid var(--border-color) !important;
       border-radius: 10px !important;
       padding: 16px !important;
     }
+
     .markdown-body hr {
       border: 0;
       border-top: 1px solid var(--border-color) !important;
@@ -443,10 +511,12 @@
       transition: all 0.22s ease;
       box-shadow: 0 2px 8px rgba(31, 40, 86, 0.05);
     }
+
     .diagram-container:hover {
       border-color: var(--primary);
       box-shadow: 0 8px 20px rgba(215, 25, 32, 0.1);
     }
+
     .diagram-header-bar {
       display: flex;
       justify-content: space-between;
@@ -457,6 +527,7 @@
       font-size: 0.8rem;
       color: var(--text-muted);
     }
+
     .diagram-header-bar span.badge-diag {
       background: var(--primary-light);
       color: var(--primary-hover);
@@ -469,6 +540,7 @@
       align-items: center;
       gap: 5px;
     }
+
     .btn-zoom-trigger {
       font-size: 0.78rem;
       font-family: 'Rubik', sans-serif;
@@ -484,6 +556,7 @@
       font-weight: 600;
       transition: all 0.18s ease;
     }
+
     .btn-zoom-trigger:hover {
       background: var(--primary);
       color: #ffffff;
@@ -500,6 +573,7 @@
       display: inline-block;
       margin: 0 auto;
     }
+
     .markdown-body img:hover {
       transform: scale(1.008);
     }
@@ -521,10 +595,12 @@
       pointer-events: none;
       transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .lightbox-modal.active {
       opacity: 1;
       pointer-events: auto;
     }
+
     .lightbox-header {
       padding: 12px 24px;
       background: linear-gradient(135deg, #1f2856 0%, #151c3d 100%);
@@ -536,6 +612,7 @@
       z-index: 100;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
+
     .lightbox-brand-group {
       display: flex;
       align-items: center;
@@ -543,6 +620,7 @@
       overflow: hidden;
       max-width: 55%;
     }
+
     .lightbox-brand-badge {
       background: #d71920;
       color: #ffffff;
@@ -556,6 +634,7 @@
       white-space: nowrap;
       box-shadow: 0 2px 6px rgba(215, 25, 32, 0.4);
     }
+
     .lightbox-title {
       font-family: 'Rubik', sans-serif;
       font-size: 0.95rem;
@@ -565,11 +644,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     .lightbox-toolbar {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .lb-btn {
       background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
@@ -585,35 +666,42 @@
       gap: 6px;
       transition: all 0.18s ease;
     }
+
     .lb-btn:hover {
       background: rgba(215, 25, 32, 0.25);
       border-color: #d71920;
       color: #ffffff;
       transform: translateY(-1px);
     }
+
     .lb-btn:active {
       transform: translateY(0);
     }
+
     .lb-btn.lb-btn-accent {
       border-color: rgba(212, 161, 64, 0.4);
       color: #ffd885;
     }
+
     .lb-btn.lb-btn-accent:hover {
       background: rgba(212, 161, 64, 0.2);
       border-color: #d4a140;
       color: #ffffff;
     }
+
     .lb-btn.lb-close {
       background: linear-gradient(135deg, #d71920 0%, #b6040b 100%);
       border: 1px solid #d71920;
       color: #ffffff;
       box-shadow: 0 2px 8px rgba(215, 25, 32, 0.4);
     }
+
     .lb-btn.lb-close:hover {
       background: linear-gradient(135deg, #e3222a 0%, #c40910 100%);
       border-color: #ff4d56;
       box-shadow: 0 4px 14px rgba(215, 25, 32, 0.6);
     }
+
     .lightbox-body {
       flex: 1;
       position: relative;
@@ -624,9 +712,11 @@
       cursor: grab;
       user-select: none;
     }
+
     .lightbox-body:active {
       cursor: grabbing;
     }
+
     .lightbox-canvas {
       position: absolute;
       transform-origin: center center;
@@ -636,6 +726,7 @@
       justify-content: center;
       pointer-events: auto;
     }
+
     .lightbox-canvas img {
       max-width: none !important;
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 0 2px rgba(215, 25, 32, 0.35);
@@ -646,6 +737,7 @@
       pointer-events: auto;
       transition: box-shadow 0.2s ease;
     }
+
     .lightbox-footer {
       padding: 11px 24px;
       background: linear-gradient(135deg, #151c3d 0%, #1f2856 100%);
@@ -658,17 +750,20 @@
       z-index: 100;
       box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.25);
     }
+
     .lightbox-hints {
       display: flex;
       align-items: center;
       gap: 16px;
       flex-wrap: wrap;
     }
+
     .lightbox-hint-item {
       display: inline-flex;
       align-items: center;
       gap: 5px;
     }
+
     .lightbox-hint-tag {
       background: rgba(255, 255, 255, 0.12);
       color: #ffd885;
@@ -678,19 +773,23 @@
       font-weight: 600;
       font-size: 0.74rem;
     }
+
     .lightbox-footer-right {
       display: flex;
       align-items: center;
       gap: 14px;
     }
+
     .lightbox-brand-credit {
       font-size: 0.76rem;
       color: rgba(255, 255, 255, 0.55);
       letter-spacing: 0.3px;
     }
+
     .lightbox-brand-credit strong {
       color: #ffffff;
     }
+
     .zoom-indicator {
       font-family: 'Rubik', sans-serif;
       font-weight: 700;
@@ -704,6 +803,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Sidebar -->
@@ -714,7 +814,7 @@
         <span class="status-badge"><span class="dot"></span> EN VIVO</span>
       </div>
       <h2>📦 Sorters Andreani</h2>
-      <p>Portal de Observabilidad y Arquitectura</p>
+      <p>Portal de Observabilidad</p>
     </div>
     <div class="sidebar-search">
       <input type="text" id="doc-search" placeholder="🔍 Filtrar índice..." oninput="filterDocs(this.value)">
@@ -724,7 +824,7 @@
     </ul>
     <div class="sidebar-footer">
       <span>Grupo Logístico <strong>Andreani</strong></span>
-      <span>Observabilidad & Arquitectura Sorters</span>
+      <span>Observabilidad Sorters</span>
     </div>
   </div>
 
@@ -768,7 +868,8 @@
         <button class="lb-btn" onclick="zoomOut()" title="Alejar (-)">🔍 -</button>
         <button class="lb-btn" onclick="resetZoom()" title="Tamaño 100%">100%</button>
         <button class="lb-btn" onclick="fitToScreen()" title="Ajustar a pantalla">⛶ Ajustar</button>
-        <button class="lb-btn lb-btn-accent" onclick="openOriginal()" title="Abrir SVG/Imagen en nueva pestaña">↗️ Abrir Original</button>
+        <button class="lb-btn lb-btn-accent" onclick="openOriginal()" title="Abrir SVG/Imagen en nueva pestaña">↗️ Abrir
+          Original</button>
         <button class="lb-btn lb-close" onclick="closeLightbox()" title="Cerrar (Esc)">✕</button>
       </div>
     </div>
@@ -807,7 +908,7 @@
 
     // Configure Marked with robust renderer for both legacy and modern Marked.js
     const renderer = new marked.Renderer();
-    renderer.code = function(tokenOrCode, language, isEscaped) {
+    renderer.code = function (tokenOrCode, language, isEscaped) {
       let codeText = '';
       let lang = '';
       if (typeof tokenOrCode === 'object' && tokenOrCode !== null) {
@@ -820,8 +921,8 @@
       if (lang === 'mermaid') {
         return '<div class="mermaid">' + codeText + '</div>';
       }
-      return '<pre><code class="language-' + (lang || 'plaintext') + '">' + 
-        codeText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + 
+      return '<pre><code class="language-' + (lang || 'plaintext') + '">' +
+        codeText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
         '</code></pre>';
     };
     marked.setOptions({ renderer: renderer, gfm: true, breaks: false });
@@ -967,7 +1068,7 @@
     function openLightbox(src, title) {
       currentImgSrc = src;
       lbTitle.textContent = title || 'Visualizador de Diagrama';
-      
+
       // Assign image source
       lbImg.src = src;
       modal.classList.add('active');
@@ -1099,4 +1200,5 @@
     }
   </script>
 </body>
+
 </html>
