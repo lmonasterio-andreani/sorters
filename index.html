@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>📦 Sorters - Portal de Observabilidad y Documentación | Andreani</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Portal oficial de documentación y observabilidad técnica de Sorters Andreani">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+  <!-- Google Fonts: Rubik (Titulares) & Roboto (Lectura) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Hoja de Estilos Cartesian Andreani -->
+  <link rel="stylesheet" href="docs/assets/cartesian.css">
+
+  <!-- Docsify Theme Base -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+  <!-- Personalización Corporativa Cartesian Andreani -->
+  <style>
+    :root {
+      --theme-color: #d71920;
+      --sidebar-width: 320px;
+      --content-max-width: 1060px;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #2b2b2b;
+      background-color: #fcfcfd;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Rubik', sans-serif !important;
+      font-weight: 700;
+      color: #121212;
+      letter-spacing: -0.2px;
+    }
+
+    /* Sidebar Corporativo */
+    .sidebar {
+      background-color: #ffffff !important;
+      border-right: 1px solid #e2e8f0;
+      width: var(--sidebar-width);
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .app-name {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .sidebar-header-andreani {
+      padding: 22px 20px;
+      background: linear-gradient(135deg, #d71920 0%, #b6040b 100%);
+      color: #ffffff;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(182, 4, 11, 0.25);
+    }
+
+    .sidebar-brand-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .andreani-pill {
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      background: #ffffff;
+      color: #d71920;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .status-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    .status-badge .dot {
+      width: 7px;
+      height: 7px;
+      background: #00d26a;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #00d26a;
+      display: inline-block;
+    }
+
+    .sidebar-header-andreani h2 {
+      font-size: 1.18rem !important;
+      font-weight: 800;
+      margin: 0 0 4px 0 !important;
+      color: #ffffff !important;
+    }
+
+    .sidebar-header-andreani p {
+      font-size: 0.8rem;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Buscador Docsify */
+    .sidebar .search {
+      margin: 0 16px 12px 16px !important;
+      border-bottom: none !important;
+    }
+
+    .sidebar .search input {
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      background: #f8fafc !important;
+      padding: 10px 14px 10px 34px !important;
+      font-family: 'Roboto', sans-serif !important;
+      font-size: 0.85rem !important;
+      transition: all 0.2s ease !important;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .sidebar .search input:focus {
+      border-color: #d71920 !important;
+      background: #ffffff !important;
+      box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.12) !important;
+    }
+
+    /* Links de Navegación del Sidebar */
+    .sidebar-nav ul {
+      padding-left: 0 !important;
+      margin: 0 12px !important;
+    }
+
+    .sidebar-nav li {
+      margin: 4px 0 !important;
+    }
+
+    .sidebar-nav strong {
+      display: block;
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      padding: 14px 10px 6px 10px;
+      font-weight: 800;
+    }
+
+    .sidebar-nav a {
+      font-size: 0.88rem;
+      color: #475569 !important;
+      padding: 7px 12px !important;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: block;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .sidebar-nav a:hover {
+      background-color: #fef2f2;
+      color: #d71920 !important;
+      transform: translateX(2px);
+    }
+
+    .sidebar-nav li.active > a {
+      background-color: #fee2e2 !important;
+      color: #b6040b !important;
+      font-weight: 700 !important;
+      border-left: 3px solid #d71920;
+    }
+
+    /* Contenido Principal */
+    .content {
+      padding-top: 30px !important;
+      max-width: var(--content-max-width);
+    }
+
+    .markdown-section {
+      max-width: 100% !important;
+      padding: 20px 45px 60px 45px !important;
+    }
+
+    .markdown-section h1 {
+      font-size: 2.1rem;
+      border-bottom: 2px solid #fee2e2;
+      padding-bottom: 12px;
+      margin-top: 10px;
+      color: #1a1a1a;
+    }
+
+    .markdown-section h2 {
+      font-size: 1.45rem;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 8px;
+      margin-top: 36px;
+      color: #b6040b;
+    }
+
+    .markdown-section h3 {
+      font-size: 1.15rem;
+      margin-top: 26px;
+      color: #1e293b;
+    }
+
+    /* Tablas estilo Andreani */
+    .markdown-section table {
+      display: table !important;
+      width: 100% !important;
+      border-collapse: separate !important;
+      border-spacing: 0 !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 8px !important;
+      overflow: hidden !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+      margin: 20px 0 !important;
+    }
+
+    .markdown-section th {
+      background-color: #f8fafc !important;
+      color: #334155 !important;
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid #e2e8f0 !important;
+      border-top: none !important;
+      padding: 12px 16px !important;
+    }
+
+    .markdown-section td {
+      padding: 12px 16px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+      border-top: none !important;
+      font-size: 0.9rem;
+    }
+
+    .markdown-section tr:nth-child(2n) {
+      background-color: #fdfdfd !important;
+    }
+
+    .markdown-section tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    /* Bloques de Código */
+    .markdown-section pre {
+      border-radius: 8px !important;
+      background-color: #1e293b !important;
+      border: 1px solid #334155;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .markdown-section code {
+      font-family: "Cascadia Code", "Fira Code", Consolas, monospace !important;
+      font-size: 0.88rem;
+    }
+
+    /* Imágenes y Diagramas */
+    .markdown-section img {
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      background: #ffffff;
+      padding: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: zoom-in;
+    }
+
+    .markdown-section img:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Botón de Copiar Código */
+    .docsify-copy-code-button {
+      background: #d71920 !important;
+      color: #ffffff !important;
+      font-family: 'Rubik', sans-serif !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      border-radius: 4px !important;
+      padding: 5px 8px !important;
+    }
+
+    /* Paginación */
+    .pagination-item-title {
+      font-family: 'Rubik', sans-serif !important;
+      font-size: 0.95rem !important;
+      font-weight: 600 !important;
+      color: #d71920 !important;
+    }
+
+    /* Toggle Sidebar en Móviles */
+    .sidebar-toggle {
+      background-color: #d71920 !important;
+      padding: 10px !important;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .sidebar-toggle span {
+      background-color: #ffffff !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">Cargando Portal de Observabilidad de Sorters Andreani...</div>
+
+  <script>
+    window.$docsify = {
+      name: 'Sorters Andreani',
+      nameLink: '/',
+      loadSidebar: '_sidebar.md',
+      auto2top: true,
+      subMaxLevel: 3,
+      maxLevel: 4,
+      homepage: 'README.md',
+      relativePath: false,
+
+      // Configuración del Buscador Global
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 Buscar en toda la documentación...',
+        noData: '😞 No se encontraron resultados.',
+        depth: 4,
+        hideOtherSidebarContent: false
+      },
+
+      // Configuración de Copiado de Código
+      copyCode: {
+        buttonText: 'Copiar',
+        errorText: 'Error',
+        successText: '¡Copiado!'
+      },
+
+      // Paginación Siguiente / Anterior
+      pagination: {
+        previousText: '← Anterior',
+        nextText: 'Siguiente →',
+        crossChapter: true,
+        crossChapterText: true
+      },
+
+      // Plugins de Ciclo de Vida
+      plugins: [
+        function (hook, vm) {
+          // Encabezado corporativo en la barra lateral
+          hook.beforeEach(function (html) {
+            return html;
+          });
+
+          hook.ready(function () {
+            // Inyectar tarjeta corporativa de Andreani sobre el menú
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar && !document.querySelector('.sidebar-header-andreani')) {
+              const header = document.createElement('div');
+              header.className = 'sidebar-header-andreani';
+              header.innerHTML = `
+                <div class="sidebar-brand-badge">
+                  <span class="andreani-pill">ANDREANI</span>
+                  <span class="status-badge"><span class="dot"></span> EN VIVO</span>
+                </div>
+                <h2>📦 Sorters Andreani</h2>
+                <p>Portal de Observabilidad</p>
+              `;
+              sidebar.insertBefore(header, sidebar.firstChild);
+            }
+          });
+        }
+      ]
+    };
+  </script>
+
+  <!-- Docsify Core -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+
+  <!-- Buscador de Texto Completo -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+
+  <!-- Zoom Interactivo para Imágenes y Diagramas -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- Botón de Copiar Código -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+
+  <!-- Paginación Siguiente/Anterior -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
+  <!-- Resaltador de Sintaxis (Prism) -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+
+  <!-- Soporte Mermaid -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</body>
+
+</html>
