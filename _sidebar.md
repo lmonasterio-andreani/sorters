@@ -10,7 +10,6 @@
   * [📋 03. Catálogo de Componentes](docs/03-inventario-componentes.md)
   * [📦 06. Ecosistema SPP (tyd-spp)](docs/06-ecosistema-spp.md)
   * [🖼️ Catálogo de Diagramas](docs/diagramas/README.md)
-  * [🎨 Guía Estilos Cartesian](docs/guia-estilos-cartesian.md)
 
 * <!-- draft-header --> 🚧 **En Revisión / Borradores**
   * <!-- draft-item --> [🎯 04. Estrategia de Observabilidad](docs/04-estrategia-observabilidad.md)

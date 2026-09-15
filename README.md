@@ -24,8 +24,6 @@ Todo el trabajo y especificaciones del proyecto se concentran en [**`docs/`**](.
 | 📦 [**06. Ecosistema SPP (tyd-spp)**](./docs/06-ecosistema-spp.md) | Catálogo oficial de las 42 aplicaciones del proyecto SPP sincronizadas desde GitOps, con repositorios GitHub, estados y métricas. | Arquitectura, SPP, Observabilidad |
 | 🎨 [**docs/diagramas/**](./docs/diagramas/README.md) | Repositorio centralizado con todos los diagramas vectoriales SVG, renders PNG y visor HTML interactivo. | Arquitectura y Observabilidad |
 
-> 🎨 *Nota técnica interna:* El repositorio incluye la especificación de diseño Andreani Cartesian en [**`docs/guia-estilos-cartesian.md`**](./docs/guia-estilos-cartesian.md) y estilos en [**`docs/assets/cartesian.css`**](./docs/assets/cartesian.css) para uso exclusivo de desarrollo del portal.
-
 ---
 
 ### 📁 Relevamiento y Fuentes de Campo (`relevamiento/`)

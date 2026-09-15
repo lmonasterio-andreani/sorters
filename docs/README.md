@@ -21,8 +21,7 @@ En esta carpeta se consolida todo el trabajo de modelado, inventario, diseño de
 ## 🎨 Subdirectorios y Recursos Internos
 
 - [**`diagramas/`**](./diagramas/README.md): Repositorio centralizado con todos los diagramas vectoriales SVG, gráficos PNG y visores interactivos HTML.
-- **`assets/`**: Hojas de estilo corporativas ([`cartesian.css`](./assets/cartesian.css)) y recursos visuales.
-- [**`guia-estilos-cartesian.md`**](./guia-estilos-cartesian.md): **Guía interna** del sistema de diseño Andreani Cartesian y tokens de estilo para desarrolladores. *(No visible en el menú principal del portal)*.
+- **`assets/`**: Hojas de estilo corporativas y recursos visuales para el portal.
 
 ---
 
