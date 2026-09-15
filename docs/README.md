@@ -33,4 +33,4 @@ Los datos de origen que dieron sustento a esta documentación formal se encuentr
 - [**`relevamiento/diagramas/`**](../relevamiento/diagramas/README.md): Fuentes editables Draw.io y bocetos iniciales.
 - [**`relevamiento/planillas/`**](../relevamiento/planillas/README.md): Toma de servicio técnica en formato Excel.
 
-> 🌐 **Portal Interactivo:** Para visualizar toda la documentación navegable con buscador integrado, zoom de diagramas y selector de temas, abre el archivo [**`Sorters.html`**](../Sorters.html) en tu navegador.
+> 🌐 **Portal Interactivo:** Para visualizar toda la documentación navegable con buscador integrado, zoom de diagramas y diseño Andreani Cartesian, abre [**`index.html`**](../index.html) en tu navegador o ejecuta `scripts/preview.bat`.

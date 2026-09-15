@@ -4,7 +4,7 @@ Bienvenido a la Base de Conocimiento oficial para la arquitectura, operación y 
 
 Este repositorio centraliza toda la documentación técnica, diagramas de arquitectura, inventario de componentes y estrategias de monitoreo, con el objetivo de garantizar la trazabilidad integral, disponibilidad operativa y resolución ágil de incidentes.
 
-> 🌐 **Portal Home Page Unificado:** Abre directamente [**`Sorters.html`**](./Sorters.html) en cualquier navegador para recorrer toda la documentación, diagramas vectoriales interactivos y fichas técnicas con identidad corporativa Andreani Cartesian.
+> 🌐 **Portal de Documentación:** Accede a la documentación completa, diagramas vectoriales interactivos con zoom y buscador global a través del portal [**`index.html`**](./index.html) (publicado en GitHub Pages o previsualizable localmente con `scripts/preview.bat`).
 
 ---
 
@@ -15,7 +15,7 @@ Todo el trabajo y especificaciones del proyecto se concentran en [**`docs/`**](.
 
 | Documento / Carpeta | Descripción | Audiencia Principal |
 | :--- | :--- | :--- |
-| 🌐 [**Sorters.html (Home Page)**](./Sorters.html) | Portal web interactivo con menú lateral, buscador, visualizador zoom y modo oscuro/claro. | Toda la Organización |
+| 🌐 [**Portal Web (index.html)**](./index.html) | Portal web interactivo Docsify con menú lateral, buscador global, visualizador zoom y estilos Andreani Cartesian. | Toda la Organización |
 | 📘 [**01. Arquitectura General y Ecosistema**](./docs/01-arquitectura-general.md) | Visión macro del negocio logístico, tipología de Sorters (Vertical, TruxSorter, Wayzim, Giops, Regionales) y capas tecnológicas (TMS, SPP, Bases AlwaysOn, Hardware). | Arquitectura, Líderes Técnicos, Operaciones |
 | ⚡ [**02. Flujo End-to-End: Vertical Sorter**](./docs/02-flujo-end-to-end-vertical.md) | Recorrido paso a paso del flujo de datos y paquetería desde la ingesta del cliente hasta la inducción física, clasificación y retroalimentación a dashboards. Incluye resiliencia de Rampa 6. | Desarrolladores, SysAdmins, Observabilidad |
 | 📋 [**03. Catálogo e Inventario de Componentes**](./docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |

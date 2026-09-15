@@ -2,7 +2,7 @@
 
 Esta carpeta centraliza todos los **documentos de trabajo, minutas, planillas, diagramas de diseño y grabaciones audiovisuales** recopilados durante las sesiones técnicas de relevamiento con los distintos equipos de Andreani (Arquitectura, Desarrollo SPP, Operaciones CIT, Infraestructura y Soporte).
 
-Sirve como la **fuente de verdad histórica** y repositorio de evidencias a partir del cual se estructuró la documentación técnica oficial disponible en el portal [**`Sorters.html`**](../Sorters.html) y en la carpeta [**`docs/`**](../docs/).
+Sirve como la **fuente de verdad histórica** y repositorio de evidencias a partir del cual se estructuró la documentación técnica oficial disponible en el portal [**`index.html`**](../index.html) y en la carpeta [**`docs/`**](../docs/).
 
 ---
 
@@ -59,4 +59,4 @@ Todo el material en bruto de esta carpeta ha sido normalizado y sintetizado en l
 | **Estrategia y Acuerdos de Monitoreo** | [**`docs/04-estrategia-observabilidad.md`**](../docs/04-estrategia-observabilidad.md) |
 | **Diagrama Fuente Draw.io** (`diagramas/`) | [**`docs/05-flujo-observabilidad.md`**](../docs/05-flujo-observabilidad.md) y [**`docs/diagramas/`**](../docs/diagramas/) |
 | **Identidad Visual Corporativa (Interna)** | [**`docs/guia-estilos-cartesian.md`**](../docs/guia-estilos-cartesian.md) |
-| **Portal Unificado Interactivo** | [**`Sorters.html`**](../Sorters.html) |
+| **Portal Unificado Interactivo** | [**`index.html`**](../index.html) |
