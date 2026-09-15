@@ -1,5 +1,10 @@
 # 04. Estrategia de Observabilidad Integral para Sorters
 
+> 🚧 **DOCUMENTO EN PROCESO DE REVISIÓN TÉCNICA**  
+> *Este contenido es un borrador preliminar y se encuentra en etapa de adecuación metodológica interna para alinearse a los estándares del equipo.*
+
+---
+
 ## 1. Objetivos y Alcance
 La observabilidad del ecosistema de Sorters tiene como meta garantizar:
 1. **Continuidad Operativa**: Asegurar que los paquetes fluyan sin cuellos de botella desde su ingesta digital hasta su clasificación física.

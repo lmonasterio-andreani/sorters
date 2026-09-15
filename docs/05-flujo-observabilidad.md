@@ -1,5 +1,10 @@
 # 05. Diagrama End-to-End de Observabilidad: Ecosistema Sorters
 
+> 🚧 **DOCUMENTO EN PROCESO DE REVISIÓN TÉCNICA**  
+> *Este contenido es un borrador preliminar y se encuentra en etapa de adecuación metodológica interna para alinearse a los estándares del equipo.*
+
+---
+
 Este documento contiene el **mapa integral de observabilidad** del circuito de Sorters, con foco en el **Vertical Sorter (CIT 1° Piso)**. Representa el flujo de información y paquetería de punta a punta, señalizando los **puntos de control y sensores de monitoreo (S1 a S10)** recomendados para la instrumentación.
 
 ---

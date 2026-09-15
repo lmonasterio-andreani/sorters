@@ -318,6 +318,113 @@
     .sidebar-toggle span {
       background-color: #ffffff !important;
     }
+
+    /* Contenedor del Switch de Borradores / Docs en Revisión */
+    .draft-toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 8px 16px 14px 16px;
+      padding: 9px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .draft-toggle-container:hover {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+    }
+
+    .draft-toggle-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .draft-toggle-texts {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .draft-toggle-title {
+      font-family: 'Rubik', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .draft-toggle-subtitle {
+      font-size: 0.67rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Switch Estilo Cartesian Andreani */
+    .andreani-switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .andreani-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .andreani-switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: 0.25s;
+      border-radius: 20px;
+    }
+
+    .andreani-switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #ffffff;
+      transition: 0.25s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    .andreani-switch input:checked + .slider {
+      background-color: #d71920;
+    }
+
+    .andreani-switch input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    /* Ocultamiento de Secciones en Revisión */
+    body.hide-drafts .draft-section-header,
+    body.hide-drafts .draft-section-item,
+    body.hide-drafts .sidebar-nav li:has(a[href*="04-estrategia-observabilidad"]),
+    body.hide-drafts .sidebar-nav li:has(a[href*="05-flujo-observabilidad"]) {
+      display: none !important;
+    }
+
+    /* Distintivo de borrador visible */
+    body:not(.hide-drafts) .draft-section-item a {
+      border-left: 2px dashed #f59e0b;
+      background-color: #fffbeb;
+    }
   </style>
 </head>
 
@@ -384,10 +491,80 @@
               `;
               sidebar.insertBefore(header, sidebar.firstChild);
             }
+
+            // Inyectar interruptor para mostrar/ocultar documentos en revisión
+            if (sidebar && !document.querySelector('.draft-toggle-container')) {
+              const toggleDiv = document.createElement('div');
+              toggleDiv.className = 'draft-toggle-container';
+              toggleDiv.innerHTML = `
+                <div class="draft-toggle-content">
+                  <span style="font-size: 1.05rem;">🚧</span>
+                  <div class="draft-toggle-texts">
+                    <span class="draft-toggle-title">Docs en revisión</span>
+                    <span class="draft-toggle-subtitle" id="draft-state-text">Ocultos</span>
+                  </div>
+                </div>
+                <label class="andreani-switch" title="Activar para ver documentos en revisión / borradores">
+                  <input type="checkbox" id="draft-toggle-checkbox">
+                  <span class="slider"></span>
+                </label>
+              `;
+
+              const searchDiv = sidebar.querySelector('.search');
+              if (searchDiv && searchDiv.nextSibling) {
+                sidebar.insertBefore(toggleDiv, searchDiv.nextSibling);
+              } else if (searchDiv) {
+                sidebar.appendChild(toggleDiv);
+              } else {
+                sidebar.insertBefore(toggleDiv, sidebar.children[1] || null);
+              }
+
+              const chk = toggleDiv.querySelector('#draft-toggle-checkbox');
+              chk.addEventListener('change', function (e) {
+                localStorage.setItem('andreani_show_drafts', e.target.checked ? 'true' : 'false');
+                applyDraftsState();
+              });
+            }
+
+            applyDraftsState();
+          });
+
+          hook.doneEach(function () {
+            applyDraftsState();
           });
         }
       ]
     };
+
+    function applyDraftsState() {
+      // Por defecto es FALSE (oculto para todas las áreas)
+      const showDrafts = localStorage.getItem('andreani_show_drafts') === 'true';
+      const checkbox = document.getElementById('draft-toggle-checkbox');
+      const stateText = document.getElementById('draft-state-text');
+
+      if (checkbox) checkbox.checked = showDrafts;
+      if (stateText) stateText.textContent = showDrafts ? 'Visibles' : 'Ocultos';
+
+      if (showDrafts) {
+        document.body.classList.remove('hide-drafts');
+      } else {
+        document.body.classList.add('hide-drafts');
+      }
+
+      // Etiquetar elementos en el menú lateral
+      document.querySelectorAll('.sidebar-nav li').forEach(li => {
+        const text = li.textContent || '';
+        const a = li.querySelector('a');
+        const href = a ? a.getAttribute('href') || '' : '';
+
+        if (text.includes('En Revisión') || text.includes('Borradores') || text.includes('draft-header')) {
+          li.classList.add('draft-section-header');
+        }
+        if (href.includes('04-estrategia-observabilidad') || href.includes('05-flujo-observabilidad') || text.includes('draft-item')) {
+          li.classList.add('draft-section-item');
+        }
+      });
+    }
   </script>
 
   <!-- Docsify Core -->
