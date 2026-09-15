@@ -5,7 +5,8 @@ echo   Sincronizando Aplicaciones SPP desde GitOps Platform
 echo ========================================================
 echo.
 
-python sync-gitops.py
+cd /d "%~dp0\.."
+python scripts\sync-gitops.py
 
 echo.
 pause

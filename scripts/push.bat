@@ -7,6 +7,7 @@ echo   2. lmonasterio-andreani/sorters
 echo ========================================================
 echo.
 
+cd /d "%~dp0\.."
 git push origin main
 
 if %ERRORLEVEL% NEQ 0 (

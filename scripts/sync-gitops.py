@@ -23,11 +23,15 @@ import openpyxl
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# Determinar la raíz del repositorio de forma absoluta e independiente de dónde se ejecute
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+
 PROJECT_ID = 51
 GITOPS_API_URL = f"https://github-wizard-api-gitops-prod.apps.andreani.com.ar/api/v1/applications?projectId={PROJECT_ID}"
-OUTPUT_MD_PATH = os.path.join("docs", "06-ecosistema-spp.md")
-OUTPUT_JSON_PATH = os.path.join("docs", "assets", "spp-apps.json")
-PLANILLAS_DIR = os.path.join("relevamiento", "planillas")
+OUTPUT_MD_PATH = os.path.join(ROOT_DIR, "docs", "06-ecosistema-spp.md")
+OUTPUT_JSON_PATH = os.path.join(ROOT_DIR, "docs", "assets", "spp-apps.json")
+PLANILLAS_DIR = os.path.join(ROOT_DIR, "relevamiento", "planillas")
 
 CATEGORIES = {
     "1. Integración con Sorters (Clasificación Automatizada)": [
@@ -110,7 +114,6 @@ def fetch_from_excel():
     pattern = os.path.join(PLANILLAS_DIR, "aplicaciones*.xlsx")
     files = glob.glob(pattern)
     if not files:
-        # Intenta con cualquier archivo xlsx en planillas
         files = glob.glob(os.path.join(PLANILLAS_DIR, "*.xlsx"))
         files = [f for f in files if "aplicaciones" in os.path.basename(f).lower()]
 
@@ -118,13 +121,11 @@ def fetch_from_excel():
         print(f"[-] No se encontraron archivos de exportación en {PLANILLAS_DIR}")
         return None
 
-    # Ordenar por fecha de modificación más reciente
     files.sort(key=os.path.getmtime, reverse=True)
     latest_file = files[0]
     print(f"[*] Procesando archivo local más reciente: {latest_file}")
 
-    # Copia temporal segura para evitar bloqueos si el archivo está abierto en Excel
-    temp_path = "temp_sync_app.xlsx"
+    temp_path = os.path.join(ROOT_DIR, "temp_sync_app.xlsx")
     try:
         shutil.copyfile(latest_file, temp_path)
     except PermissionError:
@@ -223,7 +224,6 @@ def generate_markdown(apps):
         f.write(content)
     print(f"[+] Archivo generado exitosamente: {OUTPUT_MD_PATH}")
 
-    # Guardar también el dump JSON en docs/assets/spp-apps.json para consumo estructurado
     os.makedirs(os.path.dirname(OUTPUT_JSON_PATH), exist_ok=True)
     with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
         json.dump(apps, f, indent=2, ensure_ascii=False)

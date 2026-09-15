@@ -21,6 +21,7 @@ Todo el trabajo y especificaciones del proyecto se concentran en [**`docs/`**](.
 | 📋 [**03. Catálogo e Inventario de Componentes**](./docs/03-inventario-componentes.md) | Inventario consolidado de más de 50 componentes: APIs, Workers en K8s (CCE/AKS-BR/K3H/K3S), Tópicos de Kafka, Bases de Datos SQL/Redis y listado de PCs industriales. | SRE, DevOps, Monitoreo, Soporte L2/L3 |
 | 🎯 [**04. Estrategia de Observabilidad Integral**](./docs/04-estrategia-observabilidad.md) | Matriz de observabilidad en 4 pilares: Métricas clave (SLIs/SLOs), Logs/APM, Health Checks sintéticos, Matriz de alarmado (P1 a P3) y Runbooks de contingencia. | Equipos de Observabilidad, Centro de Control (NOC), Guardia |
 | 🗺️ [**05. Diagrama E2E y Sensores de Monitoreo**](./docs/05-flujo-observabilidad.md) | Mapa visual que detalla el flujo de datos junto con los 10 sensores de monitoreo recomendados (S1 a S10) y mitigación de SPOFs. | Todos los equipos técnicos |
+| 📦 [**06. Ecosistema SPP (tyd-spp)**](./docs/06-ecosistema-spp.md) | Catálogo oficial de las 42 aplicaciones del proyecto SPP sincronizadas desde GitOps, con repositorios GitHub, estados y métricas. | Arquitectura, SPP, Observabilidad |
 | 🎨 [**docs/diagramas/**](./docs/diagramas/README.md) | Repositorio centralizado con todos los diagramas vectoriales SVG, renders PNG y visor HTML interactivo. | Arquitectura y Observabilidad |
 
 > 🎨 *Nota técnica interna:* El repositorio incluye la especificación de diseño Andreani Cartesian en [**`docs/guia-estilos-cartesian.md`**](./docs/guia-estilos-cartesian.md) y estilos en [**`docs/assets/cartesian.css`**](./docs/assets/cartesian.css) para uso exclusivo de desarrollo del portal.
@@ -32,9 +33,17 @@ En [**`relevamiento/`**](./relevamiento/README.md) se organizan los materiales d
 
 - 🎙️ [**`relevamiento/reuniones/`**](./relevamiento/reuniones/README.md): Minuta técnica (`Observabilidad integral de los Sorters 01.docx`) y grabación en video de la sesión de arquitectura (`.mp4`).
 - 📐 [**`relevamiento/diagramas/`**](./relevamiento/diagramas/README.md): Fuentes preliminares y diagramas editables de trabajo (`mapa de monitoreo sorter.drawio`, `Diagrama01.png`).
-- 📊 [**`relevamiento/planillas/`**](./relevamiento/planillas/README.md): Matriz técnica exhaustiva de relevamiento (`Toma_de_Servicio - Sorters.xlsx`).
+- 📊 [**`relevamiento/planillas/`**](./relevamiento/planillas/README.md): Matriz técnica de relevamiento (`Toma_de_Servicio - Sorters.xlsx`) y exportación de aplicaciones (`aplicaciones_*.xlsx`).
 
 ---
+
+### 🛠️ Scripts y Automatización (`scripts/`)
+En [**`scripts/`**](./scripts/README.md) se centralizan las herramientas operativas del repositorio:
+
+- 🌐 [**`scripts/preview.bat`**](./scripts/preview.bat): Inicia el servidor local de previsualización en `http://localhost:3000`.
+- 🚀 [**`scripts/push.bat`**](./scripts/push.bat): Empuja cambios pendientes a ambos repositorios GitHub simultáneamente.
+- 🔄 [**`scripts/sync.bat`**](./scripts/sync.bat): Acceso rápido para sincronizar las aplicaciones SPP con la plataforma GitOps.
+- 🐍 [**`scripts/sync-gitops.py`**](./scripts/sync-gitops.py): Motor de sincronización automática (vía API REST o exportación Excel).
 
 ## 📌 Contexto de Negocio y Rol de los Sorters
 
