@@ -2,6 +2,7 @@
 
 * **Visión General**
   * [📌 Inicio](README.md)
+  * [📋 Estándar de Observabilidad](estandar-observabilidad/README.md)
 
 * **Documentación Técnica (docs)**
   * [📘 01. Arquitectura General](docs/01-arquitectura-general.md)

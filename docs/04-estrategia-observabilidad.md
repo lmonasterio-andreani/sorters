@@ -1,113 +1,191 @@
-# 04. Estrategia de Observabilidad Integral para Sorters
+# 04. Estrategia de Observabilidad: Ecosistema Sorters
 
-> 🚧 **DOCUMENTO EN PROCESO DE REVISIÓN TÉCNICA**  
-> *Este contenido es un borrador preliminar y se encuentra en etapa de adecuación metodológica interna para alinearse a los estándares del equipo.*
-
----
-
-## 1. Objetivos y Alcance
-La observabilidad del ecosistema de Sorters tiene como meta garantizar:
-1. **Continuidad Operativa**: Asegurar que los paquetes fluyan sin cuellos de botella desde su ingesta digital hasta su clasificación física.
-2. **Detección Temprana de Fallas Silenciosas**: Identificar anomalías donde el hardware sigue funcionando pero el software perdió sincronización (ej. "Tablero en Cero"), o donde las dependencias externas degradan el ruteo.
-3. **Reducción del MTTR (Mean Time to Resolution)**: Brindar a los equipos de soporte y guardia alertas claras con contexto y runbooks precisos de resolución.
+> 📋 **Marco Metodológico Oficial:** Este documento implementa los lineamientos, roles y entregables definidos en el [**`Estándar de Incorporación de Servicios al Modelo de Observabilidad`**](../estandar-observabilidad/README.md) del Grupo Logístico Andreani.
 
 ---
 
-## 2. Los Cuatro Pilares de Observabilidad
+## 1. Objetivo y Modelo de Gestión
 
-![Cuatro Pilares de Observabilidad](./diagramas/pilares-observabilidad.svg)
+El objetivo de esta estrategia es incorporar el **Ecosistema de Sorters y SPP** al **Modelo de Observabilidad de Andreani**, asegurando:
+1. **Detección Temprana de Fallas Silenciosas**: Identificar desincronizaciones entre el hardware industrial y los microservicios antes de que impacten en la operación física.
+2. **Continuidad Operativa**: Garantizar el flujo continuo de bultos desde la ingesta digital en SPP hasta su clasificación y expulsión física.
+3. **Reducción del MTTR (Mean Time to Resolution)**: Proveer a los equipos de soporte L2/L3, guardias y NOC alertas contextualizadas, consultas estándar y runbooks de contingencia.
 
----
+### Modelo de Trabajo en Jira (Épica de Incorporación)
+Siguiendo el estándar, el proceso se gestiona mediante una **única épica en Jira** articulada entre los tres actores clave:
 
-## 3. Indicadores Clave de Servicio (SLIs / SLOs)
-
-| Indicador (SLI) | Componente Objetivo | Umbral Normal | Umbral Advertencia (Warning) | Umbral Crítico (Critical) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Consumer Lag (Kafka)** | `spp-altas-suscriber` | < 100 mensajes | 100 - 1.000 mensajes | > 1.000 mensajes durante > 5 min |
-| **Consumer Lag (Kafka)** | `spptovertical-suscriber` | < 50 mensajes | 50 - 300 mensajes | > 300 mensajes durante > 3 min |
-| **Latencia P95 de Enriquecimiento** | `spp-altas-api` -> NDD / Geo | < 250 ms | 250 ms - 800 ms | > 1.200 ms durante > 3 min |
-| **Throughput de Retorno** | `verticaltoSpp-publisher` | > 0 bultos/min (en horario operativo) | 0 bultos/min durante 5 min con cinta activa | 0 bultos/min durante > 10 min |
-| **Tasa de Desvío a Rampa 6** | `tb_evento` (Integración Vertical) | < 1.5% del total de bultos | 1.5% - 5% | > 5% del volumen en 1 hora |
-| **Latencia de Replicación AlwaysOn**| `DBSORTER` (Nodo 2) | < 2 segundos | 2s - 15s | > 30s o estado `DISCONNECTED` |
-| **Conectividad a Redis Cursor** | `verticaltoSpp-publisher` | Conectado / PING PONG | Latencia Redis > 20ms | Desconexión / Error de autenticación |
-| **Disponibilidad de PC Sorter** | `PC100454` (`10.20.48.108`) | ICMP Ping < 10ms | Ping 10 - 50ms | Pérdida de paquetes > 20% o No Host |
-
----
-
-## 4. Matriz de Alarmado y Severidad
-
-### 🔴 P1 - Crítica (Impacto Operativo Inmediato / Planta Ciegas o Parada)
-- **Tiempo de Respuesta (SLA)**: < 15 minutos.
-- **Ruta de Escalamiento**: NOC -> Guardia Observabilidad -> Guardia Desarrollo SPP / Infraestructura.
-
-| Condición Monitoreada | Señal de Detección | Impacto en Negocio | Acción Inmediata (Runbook) |
-| :--- | :--- | :--- | :--- |
-| **Caída de Réplica de `DBSORTER`** | Estado de sincronización AlwaysOn `NOT SYNCHRONIZING` o probe de conexión fallido. | Los tableros `spp-dashboard-ui` fallan o se congelan. La supervisión de planta queda a ciegas. | Verificar salud del nodo secundario SQL Server. Si no recupera, conmutar temporalmente la cadena de conexión de `reportes-api` al nodo primario con autorización de DBA. |
-| **"Tablero en Cero" (`verticaltoSpp-publisher` inactivo)** | Pod en `CrashLoopBackOff`, error de conexión a SQL/Redis o métrica de publicación = 0 durante 10 min. | La máquina clasifica pero no se actualiza la trazabilidad. Se pierde el control de bultos clasificados y reportes de producción. | 1. Revisar logs del pod `verticaltoSpp-publisher`.<br/>2. Comprobar disponibilidad de Redis `DBSORTERPROD`.<br/>3. Reiniciar el deployment en K8s (`kubectl rollout restart deployment verticaltoSpp-publisher -n tyd-spp`). |
-| **Acumulación Extrema de Lag en `spp-altas-suscriber`** | Lag en tópico Kafka > 5.000 mensajes creciendo sostenidamente. | Los envíos no llegan a `DBSORTER`. Cuando el bulto llega físicamente al arco de lectura, no existe orden y se expulsa masivamente a Rampa 6. | 1. Verificar latencia de `API Normalización (NDD)` y `API Geo`.<br/>2. Si las APIs externas están caídas o lentas, alertar al equipo de Domicilios/Geo.<br/>3. Escalar réplicas del worker si el consumo es CPU-bound. |
-| **Pérdida de Conectividad con la PC Industrial / PLC** | Host `10.20.48.108` inalcanzable por ICMP / SNMP durante > 3 min. | Caída del clasificador físico o corte de red en planta CIT. | Contactar de inmediato a Mantenimiento Electromecánico y Soporte de Infraestructura en Planta CIT. |
-
----
-
-### 🟡 P2 - Alta (Degradación de Servicio / Riesgo de Saturación)
-- **Tiempo de Respuesta (SLA)**: < 1 hora.
-
-| Condición Monitoreada | Señal de Detección | Impacto en Negocio | Acción Inmediata (Runbook) |
-| :--- | :--- | :--- | :--- |
-| **Incremento Anormal en Rampa 6** | Ratio de bultos a Rampa 6 > 5% en la última hora. | Sobrecarga de operarios recogiendo paquetes rechazados. Posible falla de sincronización de `spptovertical-suscriber` o demoras en TMS. | 1. Verificar estado de ejecución de `job-spptovertical`.<br/>2. Validar que no haya desfasajes de fecha/hora entre la base y el clasificador.<br/>3. Revisar logs de escáner en búsqueda de etiquetas ilegibles. |
-| **Degradación de APIs de Enriquecimiento** | HTTP 5xx o timeout > 2s en API NDD o API Sucursales. | Retardo en la ingesta y clasificación automática. | Alertar al equipo de Canales / APIs Core y activar circuit breaker o modo de degradación controlada si está disponible. |
-| **Almacenamiento en Bases de Datos > 85%** | Espacio en disco de `DBSORTER` o `Integración Vertical` próximo a saturación. | Riesgo de suspensión de escrituras SQL y parada completa de operaciones. | Ejecutar rutinas de purga/historificación de bultos mayores a 30 días con el equipo DBA. |
-
----
-
-### 🟢 P3 - Media / Informativa (Advertencias y Mantenimiento)
-- **Tiempo de Respuesta (SLA)**: Horario hábil / siguiente ciclo.
-
-| Condición Monitoreada | Señal de Detección | Impacto en Negocio | Acción Inmediata |
-| :--- | :--- | :--- | :--- |
-| **Reinicios aislados de Pods** | Eventos `OOMKilled` o reinicios esporádicos en workers secundarios. | Ninguno visible si la réplica absorbe el tráfico. | Ajustar memory/CPU limits en los manifiestos de Kubernetes. |
-| **Desvío de Tópicos Secundarios** | Lag moderado en `spp.cambio-destino` o `geocerca-consumer`. | Demoras menores en recanalizaciones. | Monitorear evolución y rebalanceo de particiones Kafka. |
-
----
-
-## 5. Puntos de Control y Trazabilidad Distribuida
-
-Para seguir el ciclo de vida de un paquete de punta a punta, se establece el estándar de instrumentación mediante **Elastic APM** y **OpenTelemetry** propagando los siguientes identificadores en todos los headers HTTP y metadata de Kafka:
-
-```text
-[Header HTTP / Kafka Metadata]
-X-Trace-Id:       GUID de trazabilidad distribuida
-X-Andreani-Envio: Número de Envío único (ej. 000001234567)
-X-Andreani-Bulto: Número de Bulto físico (ej. 000001234567-01)
+```mermaid
+graph LR
+    subgraph Observabilidad Andreani
+        D["Discovery (Funcional y Estrategia)"]
+        P["Platform (Implementación Técnica)"]
+    end
+    subgraph Equipo del Servicio
+        S["Desarrollo SPP + Operaciones Sorters"]
+    end
+    
+    D <--> S
+    D <--> P
+    P <--> S
 ```
 
-### Consultas Rápidas para Diagnóstico en Kibana / Elastic APM:
-- **Trazar un bulto específico en todos los servicios:**
-  ```kql
-  labels.bulto: "000001234567-01" or message: "*000001234567-01*"
-  ```
-- **Identificar cuellos de botella en la ingesta del Vertical Sorter:**
-  ```kql
-  service.name: "verticaltoSpp-publisher" and log.level: "error"
-  ```
-- **Analizar rechazos hacia Rampa 6:**
-  ```kql
-  service.name: "job-spptovertical" and message: "*rampa 6*"
-  ```
+- **Equipo Discovery (Aprobador / Responsable Funcional)**: Relevamiento técnico (Toma de Servicio), definición de la estrategia, consultas KQL estándar, diseño de dashboards operativos/ejecutivos y medición de adopción.
+- **Equipo Platform (Responsable Técnico)**: Implementación de alertas, monitoreo de infraestructura (Zabbix/K8s/DBs), monitoreos sintéticos y ajuste de umbrales en la plataforma.
+- **Equipo del Servicio (SPP / Sorters)**: Validación técnica, instrumentación de código y acompañamiento operativo.
 
 ---
 
-## 6. Monitoreo del Software del Proveedor (Optisoft / Optimus)
+## 2. Capacidades de Observabilidad Estandarizadas
 
-Dado que Optisoft es un componente propietario provisto por un tercero brasileño sin instrumentación APM nativa:
+```mermaid
+graph TD
+    TS["📋 1. Toma de Servicio (Completada en Excel)"] --> APM["⚡ 2. Seguimiento APM"]
+    TS --> UX["🌐 3. Seguimiento UX (Sintéticos)"]
+    TS --> LOGS["📜 4. Seguimiento Logs (ECS)"]
+    TS --> INFRA["🖥️ 5. Seguimiento Infraestructura"]
+    
+    APM --> IND["📊 6. Indicadores y Dashboards"]
+    UX --> IND
+    LOGS --> IND
+    INFRA --> IND
+    
+    IND --> VF["✅ 7. Validación Final y Cierre"]
+```
 
-1. **Heartbeat Sintético por Base de Datos**:
-   - Monitorear periódicamente la columna `FechaModificacion` o estado de lectura en la tabla `tb_evento`.
-   - Si existen bultos pendientes de clasificación y la fecha del último registro modificado por Optisoft supera los **5 minutos**, disparar alarma de **"Optisoft Inactivo / No Consume"**.
-2. **Supervisión de Host**:
-   - Monitoreo mediante Zabbix / Telegraf en la PC `PC100454`:
-     - Estado del proceso del ejecutable de Optisoft.
-     - Uso de CPU y memoria RAM.
-     - Conectividad TCP al puerto de base de datos SQL Server y al puerto Ethernet del PLC Siemens S7-400.
-3. **Canal de Escalamiento con Proveedor**:
-   - Contacto técnico directo (Celso / equipo de soporte del fabricante) según lo definido en los acuerdos de servicio para soporte de nivel 3.
+---
+
+### 2.1. Capacidad APM (Application Performance Monitoring)
+* **Responsable:** Discovery | **Ejecuta:** Platform y Desarrollo SPP.
+* **Estándar Tecnológico:** Agente **Elastic APM** y propagación de traza distribuida.
+* **Alcance:**
+  1. Instrumentación de microservicios .NET en Kubernetes (`TYD-SPP` y `TYD-SORTERS`).
+  2. Inyección de cabeceras de trazabilidad en HTTP y metadata de Apache Kafka:
+     ```text
+     X-Trace-Id:       GUID único de trazabilidad distribuida (OpenTelemetry / W3C TraceContext)
+     X-Andreani-Envio: Código de Envío (ej. 000001234567)
+     X-Andreani-Bulto: Número de Bulto individual (ej. 000001234567-01)
+     ```
+  3. Mapeo de transacciones distribuidas desde `spp-altas-suscriber` hasta `verticaltospp-publisher`.
+* **Entregable:** Dashboard estándar de APM y alertas de latencia/errores 5xx operativas.
+
+---
+
+### 2.2. Capacidad UX y Monitoreo Sintético
+* **Responsable:** Discovery | **Ejecuta:** Platform.
+* **Estándar Tecnológico:** Heartbeats sintéticos y sondas periódicas.
+* **Alcance:**
+  1. **Disponibilidad de UIs Operativas:** Monitoreo sintético HTTP/HTTPS de disponibilidad y tiempo de carga de:
+     - `spp-ui` (Portal general de SPP).
+     - `spp-dashboard-ui` (Tablero de supervisión en planta).
+     - `trackinginternoui` (App móvil de pistoleo en nave).
+  2. **Heartbeat Sintético para Software de Fabricante (Caja Negra):**  
+     Al no contar con APM nativo en el software del fabricante del Sorter, se ejecuta una sonda periódica que evalúa la columna `FechaModificacion` en la tabla `tb_evento`. Si hay bultos pendientes y no hay actualización en más de **5 minutos**, se alerta anomalía en el software de inducción.
+* **Entregable:** Dashboard UX con métricas de disponibilidad (%) y alertas de caída de frontends.
+
+---
+
+### 2.3. Capacidad Logs y Trazabilidad
+* **Responsable:** Discovery | **Ejecuta:** Platform y Desarrollo SPP.
+* **Estándar Tecnológico:** Elasticsearch / Kibana con formato **ECS (Elastic Common Schema)**.
+* **Alcance:**
+  1. Formato estructurado JSON en todos los pods con campos obligatorios: `log.level`, `service.name`, `trace.id`, `labels.envio`, `labels.bulto`.
+  2. **Consultas Estándar de Diagnóstico Rápido en Kibana:**
+     - **Trazar un bulto en todos los microservicios:**
+       ```kql
+       labels.bulto: "000001234567-01" or message: "*000001234567-01*"
+       ```
+     - **Filtrar errores en la publicación al clasificador:**
+       ```kql
+       service.name: "verticaltospp-publisher" and log.level: "error"
+       ```
+     - **Auditar paquetes derivados a Rampa 6 (Loop de Resiliencia):**
+       ```kql
+       service.name: "job-spptovertical" and message: "*rampa 6*"
+       ```
+* **Entregable:** Dashboard estándar de logs con volumetría de errores y búsqueda guiada.
+
+---
+
+### 2.4. Capacidad Monitoreo de Infraestructura
+* **Responsable:** Platform | **Participa:** Discovery y Equipo del Servicio.
+* **Estándar Tecnológico:** **Zabbix** y agentes Telegraf / Prometheus.
+* **Alcance:**
+  1. **Clusters de Cómputo (CCE / AKS-BR):** Estado de pods, reinicios inesperados (`CrashLoopBackOff`), saturación de CPU/Memoria en namespace `tyd-spp`.
+  2. **Bases de Datos Relacionales (SQL Server AlwaysOn):**
+     - Monitoreo del grupo de disponibilidad `DBSORTER` (Nodo 1 y Réplica Nodo 2).
+     - Alarma inmediata si el estado pasa a `NOT SYNCHRONIZING` o si el lag de réplica supera **15 segundos**.
+  3. **Caché y Cursor de Estado (Redis `DBSORTERPROD`):** Memoria utilizada, conexiones cliente y respuesta a comando `PING`.
+  4. **Mensajería Asíncrona (Apache Kafka):** Lag de grupos de consumidores (`consumer-lag`) en tópicos `spp.alta-envio`, `spp.apto-para-consolidar`, etc.
+  5. **Hardware Industrial y PCs de Planta:**
+     - Conectividad de red (ICMP/SNMP) con la PC de control `PC100454` (`10.20.48.108`) y switches industriales.
+* **Entregable:** Dashboard de infraestructura y alarmas operativas en Zabbix / Alertmanager.
+
+---
+
+## 3. Indicadores Operativos y de Negocio (Dashboards)
+
+Siguiendo las directrices del estándar de la organización, la información visual se divide estrictamente entre **visión operativa** y **visión ejecutiva**:
+
+```mermaid
+graph TD
+    subgraph Fuentes de Datos de Observabilidad
+        APM["Elastic APM"]
+        LOGS["Elastic Logs (ECS)"]
+        INFRA["Zabbix / K8s / SQL AlwaysOn"]
+        KAFKA["Métricas Kafka Lag"]
+    end
+
+    subgraph Dashboards Estándar
+        DO["🛠️ DASHBOARD OPERATIVO (NOC / SRE / Soporte L2-L3)"]
+        DE["📈 DASHBOARD EJECUTIVO (Gerencia / Líderes / Operaciones)"]
+    end
+
+    APM --> DO
+    LOGS --> DO
+    INFRA --> DO
+    KAFKA --> DO
+
+    DO -->|Agregación de SLAs y KPIs| DE
+```
+
+### 3.1. Dashboard Operativo (Para Soporte L2/L3, Guardias y NOC)
+* **Finalidad:** Detección en tiempo real, diagnóstico de cuellos de botella y resolución ágil de incidentes.
+* **Métricas y Paneles:**
+  - **Consumer Lag por Tópico Kafka:** Alerta visual si `spp-altas-suscriber` o `spptovertical-suscriber` superan 500 mensajes de retraso.
+  - **Tasa de Expulsión a Rampa 6:** Porcentaje de bultos derivados a la rampa de desvío (normal < 1.5%).
+  - **Salud del Worker de Retorno (`verticaltoSpp-publisher`):** Monitoreo de actividad de clasificación en vivo para evitar el fenómeno "Tablero en Cero".
+  - **Estado de Sincronización AlwaysOn SQL Server:** Latencia de réplica y estado de conectividad entre nodos.
+  - **Logs de Error en Tiempo Real:** Filtro de excepciones `5xx` agrupadas por microservicio.
+
+### 3.2. Dashboard Ejecutivo (Para Gerencia, Líderes Técnicos y Negocio)
+* **Finalidad:** Seguimiento consolidado de la salud del servicio, cumplimiento de objetivos y capacidad instalada.
+* **Métricas y Paneles:**
+  - **SLO de Disponibilidad Global:** Meta mínima de **99.5%** de tiempo operativo sin interrupciones del circuito.
+  - **Throughput de Clasificación:** Cantidad de bultos clasificados por hora vs. capacidad teórica del clasificador.
+  - **Tasa de Eficiencia de Clasificación (First-Pass Sort):** Porcentaje de paquetes clasificados al primer intento sin pasar por Rampa 6 (Objetivo > 98%).
+  - **Cumplimiento de Ventanas Operativas (SLA):** Tiempos medios de procesamiento de bultos desde el ingreso a nave hasta la salida a troncal.
+
+---
+
+## 4. Matriz de Alarmado y Niveles de Severidad
+
+| Severidad | SLA Respuesta | Canales de Notificación | Condiciones Típicas de Disparo |
+| :---: | :---: | :--- | :--- |
+| **🔴 P1 - Crítica** | **< 15 min** | NOC, Guardia Observabilidad, Llamada automática, Teams Urgencias | • Caída de réplica de base `DBSORTER` (AlwaysOn roto).<br/>• "Tablero en Cero": Sorter clasifica pero no hay trazabilidad.<br/>• Acumulación de Lag Kafka > 5.000 mensajes sostenido.<br/>• Corte de conectividad con PC industrial / PLC (`10.20.48.108`). |
+| **🟡 P2 - Alta** | **< 1 hora** | Canal Teams Observabilidad, Alerta Zabbix / Elastic | • Incremento anormal de desvíos a Rampa 6 (> 5% en 1 hora).<br/>• Latencia de réplica AlwaysOn entre 5 y 15 segundos.<br/>• Espacio en disco de bases de datos > 85%.<br/>• Degradación de APIs de normalización de domicilio / Geo. |
+| **🔵 P3 - Media / Informativa** | **< 4 horas** | Ticket de seguimiento, Notificación por correo | • Reinicio esporádico de un pod de worker sin impacto en cola.<br/>• Variaciones menores de cobertura de pruebas.<br/>• Advertencia preventiva de memoria en pods. |
+
+---
+
+## 5. Criterios de Finalización y Validación de la Épica
+
+De acuerdo con el estándar de incorporación, la observabilidad del ecosistema de Sorters se considerará **formalmente cerrada** cuando se cumplan los 9 criterios:
+- [x] **Toma de Servicio validada:** Relevamiento consolidado en `relevamiento/planillas/Toma_de_Servicio - Sorters.xlsx`.
+- [x] **Catálogo de Componentes relevado:** Microservicios SPP y repositorios mapeados en `03. Catálogo de Componentes` y `06. Ecosistema SPP`.
+- [ ] **Instrumentación APM verificada:** Trazas distribuidas confirmadas en ambiente productivo CCE.
+- [ ] **Estrategia de Logs estandarizada:** Logs en formato ECS con labels de `bulto` y `envio`.
+- [ ] **Monitoreos Sintéticos activos:** Probes de UIs operativas y heartbeat de base de datos de Sorter.
+- [ ] **Monitoreo de Infraestructura configurado:** Templates Zabbix en K8s, SQL AlwaysOn y PC industrial.
+- [ ] **Dashboard Operativo publicado:** Tablero disponible para supervisión de planta CIT y NOC.
+- [ ] **Dashboard Ejecutivo publicado:** KPIs de disponibilidad y bultos/hora para líderes.
+- [ ] **Validación Final firmada:** Aprobación conjunta entre el Equipo de Observabilidad y el Equipo del Servicio.
