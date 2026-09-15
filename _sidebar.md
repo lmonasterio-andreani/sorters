@@ -11,9 +11,9 @@
   * [📦 06. Ecosistema SPP (tyd-spp)](docs/06-ecosistema-spp.md)
   * [🖼️ Catálogo de Diagramas](docs/diagramas/README.md)
 
-* <!-- draft-header --> 🚧 **En Revisión / Borradores**
-  * <!-- draft-item --> [🎯 04. Estrategia de Observabilidad](docs/04-estrategia-observabilidad.md)
-  * <!-- draft-item --> [🗺️ 05. Diagrama E2E y Sensores](docs/05-flujo-observabilidad.md)
+* **🚧 En Revisión / Borradores**
+  * [🎯 04. Estrategia de Observabilidad](docs/04-estrategia-observabilidad.md)
+  * [🗺️ 05. Diagrama E2E y Sensores](docs/05-flujo-observabilidad.md)
 
 * **Relevamiento de Campo**
   * [📁 Índice de Relevamiento](relevamiento/README.md)
