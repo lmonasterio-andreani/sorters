@@ -2,7 +2,7 @@
 
 Este inventario consolida todos los componentes de software, mensajería, bases de datos y hardware relevados a partir de la toma de servicio de Sorters, la sesión de arquitectura técnica y los registros de infraestructura.
 
-> 📁 **Documentos fuente de relevamiento:** El detalle original de componentes, repositorios, accesos y minutas de reuniones se encuentra resguardado en la carpeta [**`relevamiento/`**](../relevamiento/README.md) (especialmente en [**`relevamiento/planillas/Toma_de_Servicio - Sorters.xlsx`**](../relevamiento/planillas/Toma_de_Servicio%20-%20Sorters.xlsx) y [**`relevamiento/reuniones/`**](../relevamiento/reuniones/README.md)).
+> 📁 **Documentos fuente de relevamiento:** El detalle original de componentes, repositorios, accesos y minutas de reuniones se encuentra resguardado en la carpeta [**`relevamiento/`**](../relevamiento/README.md) (especialmente en [**`relevamiento/planillas/Toma_de_Servicio - Sorters.xlsx`**](../relevamiento/planillas/Toma_de_Servicio%20-%20Sorters.xlsx) y la nómina oficial de 42 aplicaciones en [**`06. Ecosistema SPP`**](./06-ecosistema-spp.md)).
 
 ---
 
@@ -10,49 +10,50 @@ Este inventario consolida todos los componentes de software, mensajería, bases 
 
 ### 1.1. Core SPP y Clasificación General
 
-| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Descripción y Rol Operativo |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **`altas-suscriber`** (`spp-altas-suscriber`) | WORKER | `TYD-SPP` | CCE | .NET 6.0 | Consume eventos de alta (`OrdenEnvioCreada`) desde Kafka y dispara la creación en SPP invocando a `altas-api`. |
-| **`altas-api`** (`spp-altas-api`) | API | `TYD-SPP` | CCE | .NET 6.0 | Orquesta el enriquecimiento de domicilio, geolocalización y zonificación, e inserta el paquete en `DBSORTER`. |
-| **`publisher-event-spp`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | Lee nuevos envíos desde `DBSORTER` y los publica a los tópicos Kafka downstream (`spp.alta-envio`, `spp.asignacion-custodia`, etc.). |
-| **`acciones-suscriber`** | WORKER | `TYD-SPP` | AKS-BR | .NET | Escucha eventos de acciones y modificaciones operativas originadas en DMS. |
-| **`acciones-api`** | API | `TYD-SPP` | AKS-BR | .NET | Endpoint de actualización de acciones sobre bultos. |
-| **`geocerca-consumer`** | WORKER | `TYD-SPP` | CCE | .NET | Escucha `geocerca-calculada` y `envios-traza-fin-de-custodia` e invoca a la API de normalización. |
-| **`eventosaforo-api`** | WORKER | `TYD-SPP` | CCE | .NET | Suscriptor de `bulto-informado`, procesa métricas de balanza y publica `bulto-pesado-y-medido`. |
-| **`dotnet-consolidacion-spp-api`** | WORKER | `TYD-SPP` | CCE | .NET | Suscriptor de `apto-para-consolidar` y publica `bulto-pesado-y-medido`. |
-| **`dotnet-stream-EnvioAptoParaConsolidar-publisher`** | WORKER | `TYD-SORTERS` | CCE | .NET | Lee de la tabla `EventosParaPublicar` de Integra y publica eventos `apto-para-consolidar`. |
-| **`mq-bridge`** | API | `TYD-SPP` | CCE | .NET | Puente de mensajería para compatibilidad con sistemas MQ legados. |
-| **`administracion-api`** | API | `TYD-SPP` | AKS-BR (Migrar a CCE) | .NET | API de backend para gestión y configuración de parámetros de clasificación. |
-| **`procesamiento-api`** | API / PUB | `TYD-SPP` | CCE | .NET | Publicador y procesador de eventos de bultos para paquetería. |
-| **`consolidacion-automatica-api`** | API | `TYD-SPP` | CCE | .NET | Servicio de consolidación de bultos en contenedores/jaulas. |
-| **`oneclick`** | API / PUB | `TYD-SPP` | CCE | .NET | Orquestador de operaciones express de despacho y sincronización. |
-| **`tracking-api`** | API | `TYD-SPP` | AKS-BR (Migrar a CCE) | .NET | Consulta de estado de trazabilidad interna de envíos en planta. |
-| **`MobileTrackingInternoAPP`** | WEB / APP | `TYD-SPP` | CCE | React / Web | Aplicación web para seguimiento y escaneo manual en planta. |
+| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Repositorio GitHub | Descripción y Rol Operativo |
+| :--- | :--- | :--- | :--- | :--- | :---: | :--- |
+| **`spp-altas-suscriber`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/dotnet-spp-altas-suscriber) | Consume eventos de alta (`OrdenEnvioCreada`) desde Kafka y dispara la creación en SPP invocando a `altas-api`. |
+| **`spp-altas-api`** | API | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/dotnet-spp-altas-api) | Orquesta el enriquecimiento de domicilio, geolocalización y zonificación, e inserta el paquete en `DBSORTER`. |
+| **`publisher-events-spp`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/publisher-events-spp) | Lee nuevos envíos desde `DBSORTER` y los publica a los tópicos Kafka downstream (`spp.alta-envio`, `spp.asignacion-custodia`, etc.). |
+| **`acciones-suscriber`** | WORKER | `TYD-SPP` | AKS-BR | .NET | - | Escucha eventos de acciones y modificaciones operativas originadas en DMS. |
+| **`acciones-api`** | API | `TYD-SPP` | AKS-BR | .NET | - | Endpoint de actualización de acciones sobre bultos. |
+| **`geocerca-consumer`** | WORKER | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-geocerca-consumer) | Escucha `geocerca-calculada` y `envios-traza-fin-de-custodia` e invoca a la API de normalización. |
+| **`eventosdeaforo-api`** | WORKER | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-EventosDeAforo-SPP-API) | Suscriptor de `bulto-informado`, procesa métricas de balanza y publica `bulto-pesado-y-medido`. |
+| **`consolidacion-api`** | WORKER | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-consolidacion-spp-api) | Suscriptor de `apto-para-consolidar` y publica `bulto-pesado-y-medido`. |
+| **`dotnet-stream-EnvioAptoParaConsolidar-publisher`** | WORKER | `TYD-SORTERS` | CCE | .NET | - | Lee de la tabla `EventosParaPublicar` de Integra y publica eventos `apto-para-consolidar`. |
+| **`mq-bridge-api`** | API | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-mq-bridge) | Puente de mensajería para compatibilidad con sistemas MQ legados. |
+| **`administracion-api`** | API | `TYD-SPP` | AKS-BR (Migrar a CCE) | .NET | - | API de backend para gestión y configuración de parámetros de clasificación. |
+| **`procesamiento-api`** | API / PUB | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-Procesamiento-SPP-API) | Publicador y procesador de eventos de bultos para paquetería. |
+| **`consolidacionautomatica-api`** | API | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-consolidacion-automatica-spp-api) | Servicio de consolidación de bultos en contenedores/jaulas. |
+| **`oneclick-api`** | API / PUB | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/dotnet-OneClick-SPP-API) | Orquestador de operaciones express de despacho y sincronización. |
+| **`tracking-api`** | API | `TYD-SPP` | AKS-BR (Migrar a CCE) | .NET | [Repo ↗](https://github.com/operations-innovation/tyd-spp-tracking-api) | Consulta de estado de trazabilidad interna de envíos en planta. |
+| **`trackinginternoui`** | WEB / APP | `TYD-SPP` | CCE | React / Web | [Repo ↗](https://github.com/operations-innovation/MobileTrackingInternoApp) | Aplicación web para seguimiento y escaneo manual en planta. |
 
 ---
 
 ### 1.2. Componentes Específicos del Vertical Sorter
 
-| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Descripción y Rol Operativo |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **`spptovertical-suscriber`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | Suscriptor del tópico `spp.alta-envio`. Inserta el registro en la tabla `tb_evento` de la base `Integración Vertical`. |
-| **`job-spptovertical`** (Job Rampa 6) | WORKER | `TYD-SPP` | CCE | .NET / Batch | Job de resiliencia. Pollea `DBSORTER` buscando bultos expulsados por Rampa 6 y los reinyecta en `Integración Vertical`. |
-| **`verticaltoSpp-publisher`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | Background service que lee bultos clasificados de `Integración Vertical`, usa Redis para el cursor y publica eventos a Kafka. |
-| **`sortervertical-api`** | WORKER / API | `TYD-SPP` | CCE | .NET 6.0 | Consume eventos de clasificación del Vertical Sorter, procesa aforo (peso/medidas) y actualiza `DBSORTER`. |
+| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Repositorio GitHub | Descripción y Rol Operativo |
+| :--- | :--- | :--- | :--- | :--- | :---: | :--- |
+| **`spptovertical-suscriber`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/dotnet-spptovertical-suscriber) | Suscriptor del tópico `spp.alta-envio`. Inserta el registro en la tabla `tb_evento` de la base `Integración Vertical`. |
+| **`job-spptovertical`** (Job Rampa 6) | WORKER | `TYD-SPP` | CCE | .NET / Batch | [Repo ↗](https://github.com/operations-innovation/job-spptovertical) | Job de resiliencia. Pollea `DBSORTER` buscando bultos expulsados por Rampa 6 y los reinyecta en `Integración Vertical`. |
+| **`verticaltospp-publisher`** | WORKER | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/dotnet-verticaltospp-publisher) | Background service que lee bultos clasificados de `Integración Vertical`, usa Redis para el cursor y publica eventos a Kafka. |
+| **`sortervertical-api`** | WORKER / API | `TYD-SPP` | CCE | .NET 6.0 | [Repo ↗](https://github.com/operations-innovation/dotnet-SorterVertical-SPP-API) | Consume eventos de clasificación del Vertical Sorter, procesa aforo (peso/medidas) y actualiza `DBSORTER`. |
+| **`vertical-sorter-worker`** | WORKER | `TYD-SPP` | CCE | .NET | [Repo ↗](https://github.com/operations-innovation/tyd-spp-vertical-sorter-worker) | Worker especializado de procesamiento interno de eventos del Vertical Sorter. |
 
 ---
 
 ### 1.3. Componentes TruxSorter (Vanderlande) y Wayzim
 
-| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Descripción y Rol Operativo |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **`spp-truxsorter-worker`** | WORKER | `TYD-SORTERS` | AKS-BR | .NET | Worker de integración para el TruxSorter de planta baja CIT (Vanderlande). |
-| **`generador-de-archivo-worker`** | WORKER | `TYD-SPP` | AKS-BR | .NET | Genera los archivos batch para alimentación de clasificadores por lotes. |
-| **`archivos-pendientes-job`** | WORKER | `TYD-SPP` | AKS-BR | .NET | Job de control y reintento de archivos batch pendientes de procesamiento. |
-| **`archivos-excepciones-worker`** | WORKER | `TYD-SPP` | AKS-BR | .NET | Gestión de archivos rechazados o con inconsistencias de formato. |
-| **`integration-sorters-api` (Nube)** | API | `TYD-SPP` | AKS-BR | .NET | API central de integración para clasificadores Wayzim. |
-| **`integration-sorters-api` (Pacheco)** | API | `TYD-SPP` | K3H (Pacheco) | .NET | Instancia local de baja latencia para el clasificador Wayzim en Pacheco. |
-| **`integration-sorters-api` (Avellaneda)** | API | `TYD-SPP` | K3S (Avellaneda) | .NET | Instancia local de baja latencia para el clasificador Wayzim en Avellaneda. |
+| Componente | Tipo | Namespace | Ambiente / Cluster | Tecnología | Repositorio GitHub | Descripción y Rol Operativo |
+| :--- | :--- | :--- | :--- | :--- | :---: | :--- |
+| **`spp-truxsorter-worker`** | WORKER | `TYD-SORTERS` | AKS-BR | .NET | - | Worker de integración para el TruxSorter de planta baja CIT (Vanderlande). |
+| **`generador-de-archivo-worker`** | WORKER | `TYD-SPP` | AKS-BR | .NET | [Repo ↗](https://github.com/operations-innovation/spp-generador-de-archivo-worker) | Genera los archivos batch para alimentación de clasificadores por lotes. |
+| **`archivos-pendientes-job`** | WORKER | `TYD-SPP` | AKS-BR | .NET | - | Job de control y reintento de archivos batch pendientes de procesamiento. |
+| **`archivos-excepciones-worker`** | WORKER | `TYD-SPP` | AKS-BR | .NET | - | Gestión de archivos rechazados o con inconsistencias de formato. |
+| **`integration-sorters-api` (Nube)** | API | `TYD-SPP` | AKS-BR | .NET | [Repo ↗](https://github.com/operations-innovation/tyd-spp-integration-sorters-api) | API central de integración para clasificadores Wayzim. |
+| **`integration-sorters-api` (Pacheco)** | API | `TYD-SPP` | K3H (Pacheco) | .NET | [Repo ↗](https://github.com/operations-innovation/tyd-spp-integration-sorters-api) | Instancia local de baja latencia para el clasificador Wayzim en Pacheco. |
+| **`integration-sorters-api` (Avellaneda)** | API | `TYD-SPP` | K3S (Avellaneda) | .NET | [Repo ↗](https://github.com/operations-innovation/tyd-spp-integration-sorters-api) | Instancia local de baja latencia para el clasificador Wayzim en Avellaneda. |
 
 ---
 

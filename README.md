@@ -39,9 +39,9 @@ En [**`relevamiento/`**](./relevamiento/README.md) se organizan los materiales d
 ## 📌 Contexto de Negocio y Rol de los Sorters
 
 En la cadena logística de Andreani, los **Sorters** son los dispositivos electromecánicos e informáticos de alta velocidad encargados de:
-1. **Identificar** bultos mediante lectores ópticos de código de barras (Datalogic / Honeywell / cámaras de arco).
+1. **Identificar** bultos mediante lectores ópticos de código de barras.
 2. **Aforar** (pesar y medir dimensiones volumétricas) en movimiento de forma dinámica.
-3. **Clasificar y rutear** automáticamente cada paquete hacia la rampa o boca de salida correspondiente según su destino final, geocerca o tipo de servicio.
+3. **Clasificar y rutear** automáticamente cada paquete hacia la rampa o boca de salida correspondiente según su destino final.
 
 El sistema pivote que articula la lógica de negocio y prepara los datos para las máquinas es el **SPP (Sistema de Paquetería y Procesamiento)**.
 
@@ -61,8 +61,8 @@ Este clasificador reúne todos los desafíos de integración:
 - Eventos asíncronos en Apache Kafka (AMQ Streams)
 - Base de datos relacional en alta disponibilidad AlwaysOn (`DBSORTER` e `Integración Vertical`)
 - Almacenamiento de estado y cursor en Redis (`DBSORTERPROD`)
-- Interfaz bidireccional con software de fabricante (Optisoft)
-- Hardware de control industrial (PLC Siemens Simatic S7-400)
+- Interfaz bidireccional con software de fabricante
+- Hardware de control industrial
 - Circuito de auto-recuperación de excepciones por Rampa 6 (`job-spptovertical`)
 
-Una vez consolidado y monitoreado este circuito, el modelo se replica para los demás tipos de clasificadores de la red (TruxSorter, Wayzim, Giops y Regionales).
+Una vez consolidado y monitoreado este circuito, el modelo se replica para los demás tipos de clasificadores de la red (Wayzim, Giops y Regionales).
